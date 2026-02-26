@@ -253,17 +253,19 @@ paddingBottom: "3.5rem",
 
   // Question screen
   return (
-    <div
-      style={{
-        minHeight: "80vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "var(--bg-main)",
-        padding: "3.5rem 1rem",
-      }}
-    >
+  <div
+    style={{
+      minHeight: "100vh",
+      paddingTop: "140px", // space below navbar
+      background: "var(--bg-main)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+      paddingBottom: "3rem",
+    }}
+  >
       <div
         style={{
           background: "var(--bg-card)",
@@ -277,15 +279,50 @@ paddingBottom: "3.5rem",
           gap: "1.8rem",
         }}
       >
-        <div
-          style={{
-            fontWeight: 700,
-            fontSize: "1.35rem",
-            color: "var(--text-main)",
-          }}
-        >
-          {test.name}
-        </div>
+        <div style={{ marginBottom: "1rem" }}>
+  <div
+    style={{
+      fontWeight: 700,
+      fontSize: "1.5rem",
+      color: "var(--text-main)",
+      marginBottom: "0.6rem",
+    }}
+  >
+    {test.name}
+  </div>
+<br/>
+  {/* Description Box */}
+  <div
+    style={{
+      background: "rgba(34, 197, 94, 0.08)",
+      border: "1px solid rgba(34, 197, 94, 0.3)",
+      borderRadius: "12px",
+      padding: "0.8rem 1rem",
+    }}
+  >
+    <p
+      style={{
+        color: "var(--text-muted)",
+        fontSize: "0.95rem",
+        margin: 0,
+        lineHeight: 1.5,
+      }}
+    >
+      This test measures five key dimensions of your personality.
+
+    </p>
+    <p
+      style={{
+        color: "var(--text-muted)",
+        fontSize: "0.95rem",
+        margin: 0,
+        lineHeight: 1.5,
+      }}
+    >
+      Answer honestly to discover how you naturally think, feel, and behave.
+    </p>
+  </div>
+</div>
         <div
           style={{
             color: "var(--text-muted)",

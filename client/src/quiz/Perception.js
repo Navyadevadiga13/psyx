@@ -154,7 +154,7 @@ function Perception() {
           </div>
 
           <div style={{ marginTop: "10px", color: "#19fd91" }}>
-            ✅ Result saved to your profile!
+          ✅ Result saved to your profile!
           </div>
 
           <button style={styles.button} onClick={handleRetake}>

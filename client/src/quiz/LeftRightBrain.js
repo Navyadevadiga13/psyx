@@ -312,16 +312,41 @@ function LeftRightBrainPage() {
         }}
       >
         <div style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "1.5rem", marginBottom: "0.5rem", color: "var(--text-main)" }}>
-            {test.name}
-          </h1>
-          <p style={{ color: "var(--text-muted)", margin: 0 }}>
-            Select the statements that resonate with you. Select as many as apply!
-          </p>
-           <p style={{ color: "var(--text-muted)", margin: 0 }}>
-            Select the statements that resonate with you. Select as many as apply!
-          </p>
-        </div>
+  <h1
+    style={{
+      fontSize: "1.5rem",
+      marginBottom: "1rem",
+      color: "var(--text-main)",
+    }}
+  >
+    {test.name}
+  </h1>
+
+  {/* Description Box */}
+  <div
+    style={{
+      background: "rgba(34, 197, 94, 0.08)",
+      border: "1px solid rgba(34, 197, 94, 0.3)",
+      borderRadius: "12px",
+      padding: "1rem 1.2rem",
+      marginBottom: "1rem",
+    }}
+  >
+    <p style={{ color: "var(--text-muted)", margin: "0 0 0.5rem 0" }}>
+      This assessment helps identify whether you naturally think more analytically (Left Brain)
+      or creatively (Right Brain).
+    </p>
+
+    <p style={{ color: "var(--text-muted)", margin: 0 }}>
+      Understanding your brain dominance can guide you in choosing suitable learning styles,
+      careers, and problem-solving approaches.
+    </p>
+  </div>
+
+  <p style={{ color: "var(--text-muted)", margin: 0 }}>
+    Select the statements that resonate with you. Select as many as apply!
+  </p>
+</div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem", marginBottom: "2.5rem" }}>
           {STATEMENTS.map((statement, idx) => (

@@ -145,7 +145,7 @@ function Header({ isLoggedIn, showLogin, goProfile }) {
           position: fixed;
           top: 110px;
           right: -100%;
-          width: 270px;
+          width: 280px;
           height: calc(100vh - 110px);
           background: #ffffff !important;
           transition: right 0.3s ease;
@@ -211,7 +211,7 @@ function Header({ isLoggedIn, showLogin, goProfile }) {
 
           .mobile-menu {
             top: 70px;
-            width: 100%;
+            width: 280px;
             height: calc(100vh - 70px);
           }
         }

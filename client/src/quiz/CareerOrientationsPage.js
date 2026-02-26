@@ -90,7 +90,6 @@ function scoreCareerAnchor(answersByIndex) {
 function ThemeFixesCSS() {
   return (
     <style>{`
-      /* Hide number input arrows (all browsers) */
       input.rating-input::-webkit-outer-spin-button,
       input.rating-input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -100,8 +99,6 @@ function ThemeFixesCSS() {
         -moz-appearance: textfield;
         appearance: textfield;
       }
-      
-      /* Light mode ONLY: Darken muted text (don't affect dark mode) */
       body:not(.dark) [style*="text-muted"],
       :not(body.dark) [style*="text-muted"] {
         color: rgba(0, 0, 0, 0.75) !important;
@@ -110,8 +107,6 @@ function ThemeFixesCSS() {
       :not(body.dark) [style*="0.78rem"] {
         color: rgba(0, 0, 0, 0.65) !important;
       }
-      
-      /* Ensure dark mode uses proper contrast */
       body.dark [style*="text-muted"] {
         color: #b4bebd !important;
       }
@@ -134,11 +129,8 @@ export default function CareerOrientationsPage() {
   const total = questionList.length;
   const progress = Math.round(((step + 1) / total) * 100);
 
-  // ✅ USE ENV VARIABLE
   const API_URL =  getApiBaseUrl(); 
-;
 
-  // --- NEW: Helper to save result to backend ---
   const saveTestResult = async (scoredResult) => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -160,7 +152,6 @@ export default function CareerOrientationsPage() {
       console.error("❌ Failed to save Career result:", err);
     }
   };
-  // ---------------------------------------------
 
   const validateCurrent = () => {
     const val = answers[step];
@@ -185,7 +176,7 @@ export default function CareerOrientationsPage() {
       const answersByIndex = Array.from({ length: total }, (_, i) => answers[i]);
       const scored = scoreCareerAnchor(answersByIndex);
       setResult(scored);
-      saveTestResult(scored); // <--- TRIGGER SAVE
+      saveTestResult(scored);
     }
   };
 
@@ -196,33 +187,28 @@ export default function CareerOrientationsPage() {
     }
   };
 
+  // ✅ RESULT SCREEN (unchanged)
   if (result) {
     return (
-    <div
-  style={{
-    minHeight: "80vh",
-    marginTop: "130px",   // 👈 pushes entire card below header
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "var(--bg-main)",
-    padding: "3.5rem 1rem",
-  }}
->
-
+      <div
+        style={{
+          minHeight: "100vh",
+          marginTop: "120px",
+          background: "var(--bg-main)",
+          padding: "2rem 1rem 3rem 1rem",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <ThemeFixesCSS />
         <div
           style={{
             background: "var(--bg-card)",
-            padding: "3rem 2.75rem 3.25rem",
-            minWidth: 380,
-            maxWidth: 720,
-            borderRadius: 24,
-            boxShadow: "var(--card-shadow)",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.7rem",
+            padding: "2rem 1.8rem",
+            maxWidth: 420,
+            borderRadius: 20,
+            boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
+            textAlign: "center",
           }}
         >
           <div
@@ -230,7 +216,7 @@ export default function CareerOrientationsPage() {
               fontWeight: 750,
               fontSize: "1.45rem",
               color: "var(--text-main)",
-              textAlign: "center",
+              marginBottom: "1rem",
             }}
           >
             {test.name} – Your Career Anchors
@@ -241,14 +227,14 @@ export default function CareerOrientationsPage() {
               color: "var(--text-muted)",
               fontSize: "0.94rem",
               lineHeight: 1.5,
-              textAlign: "center",
+              marginBottom: "1.5rem",
             }}
           >
             Scores are raw sums for each anchor (5–30 per anchor, higher = stronger). The highest
             scores reflect the anchors most central to your career choices.
           </p>
 
-          {/* Centered Top Anchors Layout */}
+          {/* Top anchors layout (unchanged) */}
           <div
             style={{
               display: "flex",
@@ -258,7 +244,6 @@ export default function CareerOrientationsPage() {
               marginBottom: "1rem",
             }}
           >
-            {/* Top 2 anchors side-by-side */}
             <div
               style={{
                 display: "grid",
@@ -280,29 +265,15 @@ export default function CareerOrientationsPage() {
                     fontWeight: 600,
                   }}
                 >
-                  <div
-                    style={{
-                      fontSize: "1.05rem",
-                      marginBottom: "0.35rem",
-                      opacity: 0.9,
-                    }}
-                  >
+                  <div style={{ fontSize: "1.05rem", marginBottom: "0.35rem", opacity: 0.9 }}>
                     {CAREER_ANCHORS[anchor]}
                   </div>
-                  <div
-                    style={{
-                      fontSize: "2.2rem",
-                      fontWeight: 800,
-                      letterSpacing: "0.03em",
-                    }}
-                  >
+                  <div style={{ fontSize: "2.2rem", fontWeight: 800, letterSpacing: "0.03em" }}>
                     {score}
                   </div>
                 </div>
               ))}
             </div>
-
-            {/* Third anchor centered below */}
             {result.topAnchors[2] && (
               <div
                 style={{
@@ -312,25 +283,13 @@ export default function CareerOrientationsPage() {
                   padding: "1.4rem 1.2rem",
                   textAlign: "center",
                   fontWeight: 600,
-                  width: "220px", /* Fixed width for center alignment */
+                  width: "220px",
                 }}
               >
-                <div
-                  style={{
-                    fontSize: "1.05rem",
-                    marginBottom: "0.35rem",
-                    opacity: 0.9,
-                  }}
-                >
+                <div style={{ fontSize: "1.05rem", marginBottom: "0.35rem", opacity: 0.9 }}>
                   {CAREER_ANCHORS[result.topAnchors[2][0]]}
                 </div>
-                <div
-                  style={{
-                    fontSize: "2.2rem",
-                    fontWeight: 800,
-                    letterSpacing: "0.03em",
-                  }}
-                >
+                <div style={{ fontSize: "2.2rem", fontWeight: 800, letterSpacing: "0.03em" }}>
                   {result.topAnchors[2][1]}
                 </div>
               </div>
@@ -349,49 +308,19 @@ export default function CareerOrientationsPage() {
               }}
             >
               <thead>
-                <tr
-                  style={{
-                    background: "rgba(0,255,135,0.22)",
-                    color: "var(--btn-text)",
-                  }}
-                >
-                  <th
-                    style={{
-                      padding: "0.85rem 0.9rem",
-                      textAlign: "left",
-                      fontSize: "0.9rem",
-                      fontWeight: 600,
-                    }}
-                  >
+                <tr style={{ background: "rgba(0,255,135,0.22)", color: "var(--btn-text)" }}>
+                  <th style={{ padding: "0.85rem 0.9rem", textAlign: "left", fontSize: "0.9rem", fontWeight: 600 }}>
                     Anchor
                   </th>
-                  <th
-                    style={{
-                      padding: "0.85rem 0.9rem",
-                      textAlign: "center",
-                      fontSize: "0.9rem",
-                      fontWeight: 600,
-                    }}
-                  >
+                  <th style={{ padding: "0.85rem 0.9rem", textAlign: "center", fontSize: "0.9rem", fontWeight: 600 }}>
                     Score
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {Object.entries(CAREER_ANCHORS).map(([key, label]) => (
-                  <tr
-                    key={key}
-                    style={{
-                      borderBottom: "1px solid rgba(255,255,255,0.06)",
-                    }}
-                  >
-                    <td
-                      style={{
-                        padding: "0.7rem 0.9rem",
-                        fontSize: "0.9rem",
-                        color: "var(--text-main)",
-                      }}
-                    >
+                  <tr key={key} style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <td style={{ padding: "0.7rem 0.9rem", fontSize: "0.9rem", color: "var(--text-main)" }}>
                       {label}
                     </td>
                     <td
@@ -399,10 +328,7 @@ export default function CareerOrientationsPage() {
                         padding: "0.7rem 0.9rem",
                         textAlign: "center",
                         fontWeight: 650,
-                        color:
-                          result.topAnchors[0][0] === key
-                            ? "var(--accent)"
-                            : "var(--text-main)",
+                        color: result.topAnchors[0][0] === key ? "var(--accent)" : "var(--text-main)",
                       }}
                     >
                       {result.scores[key]}
@@ -420,220 +346,243 @@ export default function CareerOrientationsPage() {
     );
   }
 
+  // ✅ QUESTION SCREEN – updated with title in one line, reduced top spacing, and description box
   const currentValue =
     answers[step] === undefined || answers[step] === null ? "" : answers[step];
 
   return (
     <div
       style={{
-        minHeight: "80vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        minHeight: "100vh",
+        marginTop: "120px",
         background: "var(--bg-main)",
-        padding: "3.5rem 1rem",
+        padding: "2rem 1rem 3.5rem 1rem",
       }}
     >
       <ThemeFixesCSS />
 
       <div
         style={{
-          background: "var(--bg-card)",
-          padding: "2.6rem 2.75rem 2.9rem",
-          minWidth: 380,
-          maxWidth: 640,
-          borderRadius: 24,
-          boxShadow: "var(--card-shadow)",
           display: "flex",
-          flexDirection: "column",
-          gap: "1.6rem",
+          justifyContent: "center",
         }}
       >
         <div
           style={{
-            fontWeight: 750,
-            fontSize: "1.4rem",
-            color: "var(--text-main)",
-          }}
-        >
-          {test.name}
-        </div>
-        <div
-          style={{
-            color: "var(--text-muted)",
-            fontSize: "0.9rem",
-            lineHeight: 1.5,
-          }}
-        >
-          For each statement, type a number from 1 to 6: 1 = never true, 2–3 =
-          occasionally true, 4–5 = often true, 6 = always true.
-        </div>
-        <div
-          style={{
-            color: "var(--text-muted)",
-            fontSize: "0.95rem",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <span>
-            Question {step + 1} of {total}
-          </span>
-          <span style={{ opacity: 0.75 }}>{progress}% complete</span>
-        </div>
-        <div
-          style={{
-            height: 8,
-            background: "var(--progress-track-bg)",
-            borderRadius: 999,
-            overflow: "hidden",
-            marginBottom: "0.8rem",
+            background: "var(--bg-card)",
+            padding: "1.5rem 2.5rem 3rem 2.5rem", // reduced top padding
             width: "100%",
+            maxWidth: 600, // increased width to accommodate title
+            borderRadius: 20,
+            boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.8rem",
           }}
         >
+          {/* Title – adjusted font size to fit in one line */}
+          <h1
+            style={{
+              fontSize: "2rem",
+              fontWeight: 800,
+              color: "var(--text-main)",
+              textAlign: "center",
+              margin: 0, // remove default margins
+              lineHeight: 1.2,
+            }}
+          >
+            {test.name}
+          </h1>
+
+          {/* Description Box (styled div) */}
           <div
             style={{
-              width: `${progress}%`,
-              height: "100%",
-              background:
-                "linear-gradient(90deg, var(--accent), #29ff8f)",
-              transition: "width 0.25s ease",
+              background: "rgba(34, 197, 94, 0.08)",
+              border: "1px solid rgba(34, 197, 94, 0.3)",
+              borderRadius: "12px",
+              padding: "0.8rem 1rem",
+              color: "var(--text-muted)",
+              fontSize: "1.05rem",
+              lineHeight: "1.6",
             }}
-          />
-        </div>
-        <div
-          style={{
-            fontSize: "1.22rem",
-            fontWeight: 600,
-            color: "var(--text-main)",
-            lineHeight: 1.5,
-          }}
-        >
-          {questionList[step]}
-        </div>
+          >
+            Discover your career anchors based on your work preferences and values.
+            <br />
+            This assessment helps you understand what motivates you in your career.
+          </div>
 
-        <div
-          style={{
-            marginTop: "0.8rem",
-            padding: "0.9rem 1.1rem",
-            borderRadius: 14,
-            background: "var(--panel-bg)",
-            border: "1px solid var(--panel-border)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "1rem",
-          }}
-        >
+          {/* Original instruction block */}
+          <div
+            style={{
+              color: "var(--text-muted)",
+              fontSize: "0.9rem",
+              lineHeight: 1.5,
+            }}
+          >
+            For each statement, type a number from 1 to 6: 1 = never true, 2–3 =
+            occasionally true, 4–5 = often true, 6 = always true.
+          </div>
+
+          <div
+            style={{
+              color: "var(--text-muted)",
+              fontSize: "1rem",
+            }}
+          >
+            Question {step + 1} of {total}
+          </div>
+
+          <div
+            style={{
+              height: 10,
+              background: "rgba(33,46,35,0.7)",
+              borderRadius: 6,
+              overflow: "hidden",
+              width: "100%",
+            }}
+          >
+            <div
+              style={{
+                width: `${progress}%`,
+                height: "100%",
+                background: "linear-gradient(90deg, var(--accent), #29ff8f)",
+                transition: "width 0.25s ease",
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              fontSize: "1.25rem",
+              fontWeight: 600,
+              color: "var(--text-main)",
+              lineHeight: 1.5,
+            }}
+          >
+            {questionList[step]}
+          </div>
+
+          <div
+            style={{
+              marginTop: "0.8rem",
+              padding: "0.9rem 1.1rem",
+              borderRadius: 14,
+              background: "var(--panel-bg)",
+              border: "1px solid var(--panel-border)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "1rem",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+              }}
+            >
+              <span
+                style={{
+                  color: "var(--text-muted)",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Rating (1–6)
+              </span>
+              <span
+                style={{
+                  color: "var(--text-muted)",
+                  fontSize: "0.78rem",
+                  opacity: 0.8,
+                }}
+              >
+                Use whole numbers only.
+              </span>
+            </div>
+            <input
+              className="rating-input"
+              type="number"
+              min={1}
+              max={6}
+              value={currentValue}
+              onChange={(e) => {
+                const v = e.target.value;
+                if (v === "") {
+                  setAnswers((a) => ({ ...a, [step]: "" }));
+                  setError("Please enter a rating from 1 to 6.");
+                  return;
+                }
+                const num = Number(v);
+                setAnswers((a) => ({ ...a, [step]: num }));
+                if (num >= 1 && num <= 6 && Number.isInteger(num)) {
+                  setError("");
+                } else {
+                  setError("Rating must be a whole number between 1 and 6.");
+                }
+              }}
+              style={{
+                width: 82,
+                padding: "0.55rem 0.4rem",
+                borderRadius: 999,
+                border: "1.5px solid var(--input-border)",
+                background: "var(--input-bg)",
+                color: "var(--text-main)",
+                fontSize: "1.1rem",
+                textAlign: "center",
+                outline: "none",
+              }}
+            />
+          </div>
+
+          {error && (
+            <div
+              style={{
+                color: "#ff6b6b",
+                fontSize: "0.82rem",
+                marginTop: "0.45rem",
+              }}
+            >
+              {error}
+            </div>
+          )}
+
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
-              gap: "0.25rem",
+              justifyContent: "flex-end",
+              gap: "1rem",
+              marginTop: "1rem",
             }}
           >
-            <span
-              style={{
-                color: "var(--text-muted)",
-                fontSize: "0.9rem",
-              }}
-            >
-              Rating (1–6)
-            </span>
-            <span
-              style={{
-                color: "var(--text-muted)",
-                fontSize: "0.78rem",
-                opacity: 0.8,
-              }}
-            >
-              Use whole numbers only.
-            </span>
-          </div>
-          <input
-            className="rating-input"
-            type="number"
-            min={1}
-            max={6}
-            value={currentValue}
-            onChange={(e) => {
-              const v = e.target.value;
-              if (v === "") {
-                setAnswers((a) => ({ ...a, [step]: "" }));
-                setError("Please enter a rating from 1 to 6.");
-                return;
-              }
-              const num = Number(v);
-              setAnswers((a) => ({ ...a, [step]: num }));
-              if (num >= 1 && num <= 6 && Number.isInteger(num)) {
-                setError("");
-              } else {
-                setError("Rating must be a whole number between 1 and 6.");
-              }
-            }}
-            style={{
-              width: 82,
-              padding: "0.55rem 0.4rem",
-              borderRadius: 999,
-              border: "1.5px solid var(--input-border)",
-              background: "var(--input-bg)",
-              color: "var(--text-main)",
-              fontSize: "1.1rem",
-              textAlign: "center",
-              outline: "none",
-            }}
-          />
-        </div>
-
-        {error && (
-          <div
-            style={{
-              color: "#ff6b6b",
-              fontSize: "0.82rem",
-              marginTop: "0.45rem",
-            }}
-          >
-            {error}
-          </div>
-        )}
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "0.8rem",
-            marginTop: "1.4rem",
-          }}
-        >
-          {step > 0 && (
+            {step > 0 && (
+              <button
+                type="button"
+                className="cta-btn"
+                style={{
+                  background: "#182418",
+                  color: "#e6fbe9",
+                  fontWeight: 600,
+                  borderRadius: 12,
+                  padding: "0.6rem 2.2rem",
+                }}
+                onClick={handleBack}
+              >
+                Back
+              </button>
+            )}
             <button
               type="button"
               className="cta-btn"
               style={{
-                background: "#182418",
-                color: "#e6fbe9",
-                fontWeight: 600,
-                borderRadius: 999,
-                padding: "0.55rem 1.9rem",
+                padding: "0.6rem 2.2rem",
+                borderRadius: 12,
               }}
-              onClick={handleBack}
+              onClick={handleNext}
             >
-              Back
+              {step < total - 1 ? "Next" : "Get Results"}
             </button>
-          )}
-          <button
-            type="button"
-            className="cta-btn"
-            style={{
-              padding: "0.55rem 2.4rem",
-              borderRadius: 999,
-              fontWeight: 650,
-            }}
-            onClick={handleNext}
-          >
-            {step < total - 1 ? "Next" : "Get Results"}
-          </button>
+          </div>
         </div>
       </div>
     </div>

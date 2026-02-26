@@ -231,13 +231,14 @@ const styles = {
 
   /* ✅ DESCRIPTION CARD STYLES */
   descriptionCard: {
-    background: "#111",
-    border: "1px solid #19fd91",
-    borderRadius: "12px",
+    background: "rgba(255,255,255,0.05)",
+    backdropFilter: "blur(10px)",
+    border: "1px solid rgba(25,253,145,0.3)",
+    borderRadius: "18px",
     padding: "25px",
-    margin: "20px auto 30px",
     maxWidth: "700px",
-    boxShadow: "0 0 20px rgba(25, 253, 145, 0.15)",
+    margin: "20px auto 40px",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.4)"
   },
 
   cardTitle: {

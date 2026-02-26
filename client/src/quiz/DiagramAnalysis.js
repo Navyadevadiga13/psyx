@@ -1,4 +1,3 @@
-// src/pages/DiagramAnalysis.js
 
 import React, { useState, useEffect } from "react";
 import getApiBaseUrl from "../utils/api";
@@ -104,7 +103,6 @@ function DiagramAnalysis() {
         })
       });
 
-      // 🔥 IMPORTANT: Use local data to show result
       setResult(chosenShape);
 
     } catch (error) {
@@ -148,6 +146,20 @@ function DiagramAnalysis() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>{TEST_NAME}</h1>
+
+      {/* ✅ NEW DESCRIPTION CARD */}
+      <div style={styles.descriptionCard}>
+        {/* <h3 style={styles.cardTitle}>About This Test</h3> */}
+        <p style={styles.cardText}>
+          This diagram analysis test reveals your personality based on the
+          visual pattern that attracts you the most.
+        </p>
+        <p style={styles.cardText}>
+          Your choice reflects your subconscious preferences, emotional style,
+          and how you interact with the world around you.
+        </p>
+      </div>
+
       <p style={styles.description}>
         Select the visual that appeals to you the most.
       </p>
@@ -214,6 +226,30 @@ const styles = {
   heading: {
     fontSize: "32px",
     color: "#19fd91",
+    marginBottom: "10px",
+  },
+
+  /* ✅ DESCRIPTION CARD STYLES */
+  descriptionCard: {
+    background: "#111",
+    border: "1px solid #19fd91",
+    borderRadius: "12px",
+    padding: "25px",
+    margin: "20px auto 30px",
+    maxWidth: "700px",
+    boxShadow: "0 0 20px rgba(25, 253, 145, 0.15)",
+  },
+
+  cardTitle: {
+    color: "#19fd91",
+    marginBottom: "10px",
+    fontSize: "18px",
+  },
+
+  cardText: {
+    color: "#ccc",
+    fontSize: "14px",
+    lineHeight: "1.6",
     marginBottom: "10px",
   },
 

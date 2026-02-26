@@ -403,153 +403,192 @@ export default function SixteenPFPage() {
   }
 
   // Question view
-  return (
+return (
+  <div
+    style={{
+      minHeight: "60vh",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "var(--bg-main)",
+      padding: "3.5rem 1rem",
+    }}
+  >
     <div
       style={{
-        minHeight: "80vh",
+        background: "var(--bg-card)",
+        padding: "3rem 2.5rem",
+        width: "100%",
+        maxWidth: 540,
+        borderRadius: 20,
+        boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "var(--bg-main)",
-        padding: "3.5rem 1rem",
+        gap: "0.6rem",
       }}
     >
+      {/* Title */}
+<h1
+  style={{
+    fontSize: "2.3rem",
+    fontWeight: 800,
+    color: "var(--text-main)",
+    textAlign: "center",
+    marginBottom: "0.6rem",
+  }}
+>
+  {test?.name || "Sixteen Personality Factors"}
+</h1>
+
+{/* Description Box */}
+<div
+  style={{
+    background: "rgba(34, 197, 94, 0.08)",
+      border: "1px solid rgba(34, 197, 94, 0.3)",
+    borderRadius: "14px",
+    padding: "1.2rem 1.5rem",
+    marginBottom: "0 rem",
+  }}
+>
+  <p
+    style={{
+      margin: 0,
+      color: "var(--text-muted)",
+      fontSize: "1rem",
+      lineHeight: "1.6",
+    }}
+  >
+    This assessment evaluates sixteen core personality traits that
+    influence how you think, behave, and interact with others.
+  </p>
+
+  <p
+    style={{
+      marginTop: "0rem",
+      marginBottom: 0,
+      color: "var(--text-muted)",
+      fontSize: "1rem",
+      lineHeight: "1.6",
+    }}
+  >
+    Answer honestly to gain deeper insight into your strengths,
+    preferences, and behavioral patterns.
+  </p>
+</div>
+
+      {/* Question Number */}
       <div
         style={{
-          background: "var(--bg-card)",
-          padding: "3rem 2.5rem",
-          minWidth: 350,
-          maxWidth: 540,
-          borderRadius: 20,
-          boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1.8rem",
+          color: "var(--text-muted)",
+          fontSize: "1rem",
+          marginBottom: "0.5rem",
+        }}
+      >
+        Question {step + 1} of {total}
+      </div>
+
+      {/* Progress Bar */}
+      <div
+        style={{
+          height: 10,
+          background: "rgba(25, 253, 145, 0.1)",
+          borderRadius: 6,
+          overflow: "hidden",
+          width: "100%",
         }}
       >
         <div
           style={{
-            fontWeight: 700,
-            fontSize: "1.35rem",
-            color: "var(--text-main)",
-          }}
-        >
-          {test.name}
-        </div>
-        <div
-          style={{
-            color: "var(--text-muted)",
-            fontSize: "1rem",
+            width: `${progress}%`,
+            height: "100%",
+            background: "var(--accent)",
+            transition: "width 0.3s ease",
             marginBottom: "1rem",
           }}
-        >
-          Question {step + 1} of {total}
-        </div>
-        <div
-          style={{
-            height: 10,
-            background: "rgba(25, 253, 145, 0.1)",
-            borderRadius: 6,
-            overflow: "hidden",
-            marginBottom: "1.5rem",
-            width: "100%",
-          }}
-        >
-          <div
+        />
+      </div>
+
+      {/* Question Text */}
+      <div
+        style={{
+          fontSize: "1.25rem",
+          fontWeight: 600,
+          color: "var(--text-main)",
+        }}
+      >
+        {questionList[step].text}
+      </div>
+
+      {/* Options */}
+      <form style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        {questionList[step].options.map((opt) => (
+          <label
+            key={opt}
             style={{
-              width: `${progress}%`,
-              height: "100%",
-              background: "var(--accent)",
-              transition: "width 0.3s ease",
-            }}
-          />
-        </div>
-        <div
-          style={{
-            fontSize: "1.25rem",
-            fontWeight: 600,
-            color: "var(--text-main)",
-          }}
-        >
-          {questionList[step].text}
-        </div>
-        <form
-          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-        >
-          {questionList[step].options.map((opt) => (
-            <label
-              key={opt}
-              style={{
-                background:
-                  answers[step] === opt ? "var(--accent)" : "var(--bg-accent)",
-                color:
-                  answers[step] === opt
-                    ? "var(--btn-text)"
-                    : "var(--text-main)",
-                border: `2px solid ${answers[step] === opt
+              background:
+                answers[step] === opt
+                  ? "var(--accent)"
+                  : "var(--bg-accent)",
+              color:
+                answers[step] === opt
+                  ? "var(--btn-text)"
+                  : "var(--text-main)",
+              border: `2px solid ${
+                answers[step] === opt
                   ? "var(--accent)"
                   : "var(--input-border)"
-                  }`,
-                borderRadius: 10,
-                padding: "1rem 1.5rem",
-                cursor: "pointer",
-                fontWeight: 550,
-                display: "flex",
-                alignItems: "center",
-                gap: "1rem",
-              }}
-            >
-              <input
-                type="radio"
-                name={`q${step}`}
-                value={opt}
-                checked={answers[step] === opt}
-                onChange={() =>
-                  setAnswers((a) => ({
-                    ...a,
-                    [step]: opt,
-                  }))
-                }
-                style={{
-                  marginRight: 20,
-                  accentColor: "var(--accent)",
-                  cursor: "pointer",
-                }}
-              />
-              {opt}
-            </label>
-          ))}
-        </form>
-        <div
-          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
-        >
-          {step > 0 && (
-            <button
-              type="button"
-              className="cta-btn"
+              }`,
+              borderRadius: 10,
+              padding: "1rem 1.5rem",
+              cursor: "pointer",
+              fontWeight: 550,
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
+            <input
+              type="radio"
+              name={`q${step}`}
+              value={opt}
+              checked={answers[step] === opt}
+              onChange={() =>
+                setAnswers((a) => ({
+                  ...a,
+                  [step]: opt,
+                }))
+              }
               style={{
-                background: "var(--bg-accent)",
-                color: "#fff",
-                fontWeight: 600,
-                borderRadius: 12,
-                padding: "0.6rem 2.2rem",
+                accentColor: "var(--accent)",
+                cursor: "pointer",
               }}
-              onClick={handleBack}
-            >
-              Back
-            </button>
-          )}
+            />
+            {opt}
+          </label>
+        ))}
+      </form>
+
+      {/* Buttons */}
+      <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+        {step > 0 && (
           <button
             type="button"
             className="cta-btn"
-            style={{ padding: "0.6rem 2.2rem", borderRadius: 12 }}
-            onClick={handleNext}
+            onClick={handleBack}
           >
-            {step < total - 1 ? "Next" : "Submit"}
+            Back
           </button>
-        </div>
+        )}
+        <button
+          type="button"
+          className="cta-btn"
+          onClick={handleNext}
+        >
+          {step < total - 1 ? "Next" : "Submit"}
+        </button>
       </div>
     </div>
-  );
+  </div>
+);
 }

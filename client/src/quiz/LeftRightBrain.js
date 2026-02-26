@@ -293,6 +293,7 @@ function LeftRightBrainPage() {
       style={{
         minHeight: "80vh",
         display: "flex",
+      
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
@@ -315,6 +316,9 @@ function LeftRightBrainPage() {
             {test.name}
           </h1>
           <p style={{ color: "var(--text-muted)", margin: 0 }}>
+            Select the statements that resonate with you. Select as many as apply!
+          </p>
+           <p style={{ color: "var(--text-muted)", margin: 0 }}>
             Select the statements that resonate with you. Select as many as apply!
           </p>
         </div>

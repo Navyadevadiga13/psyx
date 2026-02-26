@@ -36,6 +36,20 @@ function IqTestPage() {
             text-align: center;
         }
 
+        /* NEW DESCRIPTION BOX */
+        .iq-description-box {
+            background: rgba(25, 253, 145, 0.05);
+            border: 1px solid rgba(25, 253, 145, 0.2);
+            border-radius: 14px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem auto 2rem auto;
+            max-width: 650px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
         .subtitle {
             font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.7);
@@ -145,7 +159,6 @@ function IqTestPage() {
             margin: 2rem 0;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .iq-test-container {
                 padding: 1rem;
@@ -158,14 +171,6 @@ function IqTestPage() {
             
             .main-title {
                 font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.3rem;
             }
         }
 
@@ -192,7 +197,15 @@ function IqTestPage() {
       <div className="iq-test-container">
         <div className="content-wrapper">
           <h1 className="main-title">Ready to start the IQ test?</h1>
-          <p className="subtitle">Assess your cognitive abilities with our comprehensive test.</p>
+
+          {/* NEW DESCRIPTION SECTION */}
+          <div className="iq-description-box">
+            This Intelligence Quotient (IQ) test measures your logical reasoning,
+            problem-solving ability, and analytical thinking skills.
+            It provides an estimate of your cognitive performance based on structured questions.
+          </div>
+
+          
 
           <h2 className="section-title">Test Instructions</h2>
           <div className="conditions-box">
@@ -202,8 +215,6 @@ function IqTestPage() {
               </li>
               <li className="condition-item">
                 There is no negative marking for incorrect answers.
-
-
               </li>
               <li className="condition-item">
                 Your final IQ score is calculated based on the total number of correct answers.

@@ -95,6 +95,14 @@ function CategoryListPage() {
       mins: 15,
       questions: 20
     },
+    {
+      id: "pqtest",
+      name: "PQ Test",
+      category: "personality",
+      desc: "Measure your personality skills",
+      mins: 15,
+      questions: 20
+    },
    
     {
       id: "career-anchor",

@@ -156,19 +156,6 @@ function Geometry() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>{TEST_NAME}</h1>
-
-      {/* ✅ NEW DESCRIPTION DIV SECTION */}
-      <div style={styles.descriptionCard}>
-        <p style={styles.descriptionTextCard}>
-          This test reveals your personality traits based on the geometric
-          shape you feel most connected to.
-        </p>
-        <p style={styles.descriptionTextCard}>
-          Your preferred shape reflects your leadership style, behavior
-          patterns, and how you interact with the world.
-        </p>
-      </div>
-
       <p style={styles.subText}>
         Select the shape that appeals to you most.
       </p>
@@ -218,38 +205,16 @@ const styles = {
     textAlign: "center",
     minHeight: "70vh"
   },
-
   heading: {
     fontSize: "36px",
     color: "#19fd91",
     marginBottom: "10px"
   },
-
-  /* ✅ DESCRIPTION CARD STYLE */
-  descriptionCard: {
-    background: "rgba(255,255,255,0.05)",
-    backdropFilter: "blur(10px)",
-    border: "1px solid rgba(25,253,145,0.3)",
-    borderRadius: "18px",
-    padding: "25px",
-    maxWidth: "700px",
-    margin: "20px auto 40px",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.4)"
-  },
-
-  descriptionTextCard: {
-    color: "#ccc",
-    fontSize: "15px",
-    lineHeight: "1.7",
-    marginBottom: "10px"
-  },
-
   subText: {
     color: "#ccc",
     marginBottom: "50px",
     fontSize: "16px"
   },
-
   row: {
     display: "flex",
     justifyContent: "center",
@@ -257,7 +222,6 @@ const styles = {
     gap: "30px",
     marginBottom: "40px"
   },
-
   card: {
     width: "200px",
     height: "200px",
@@ -271,12 +235,10 @@ const styles = {
     alignItems: "center",
     justifyContent: "center"
   },
-
   image: {
     width: "75%",
     transition: "0.3s ease"
   },
-
   button: {
     marginTop: "20px",
     padding: "14px 40px",
@@ -290,7 +252,6 @@ const styles = {
     boxShadow: "0 10px 25px rgba(25,253,145,0.3)",
     transition: "0.3s ease"
   },
-
   resultCard: {
     background: "rgba(255,255,255,0.05)",
     backdropFilter: "blur(12px)",
@@ -300,13 +261,11 @@ const styles = {
     marginTop: "30px",
     boxShadow: "0 20px 40px rgba(0,0,0,0.5)"
   },
-
   resultImage: {
     width: "120px",
     margin: "25px auto",
     display: "block"
   },
-
   descriptionText: {
     marginTop: "20px",
     fontSize: "15px",

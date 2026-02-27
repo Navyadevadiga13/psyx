@@ -47,17 +47,6 @@ function SpeakingTestReady() {
                     margin-bottom: 3rem;
                 }
 
-                /* New group for subtitles to reduce spacing between them */
-                .subtitle-group {
-                    margin-bottom: 3rem;
-                }
-                .subtitle-group .subtitle {
-                    margin-bottom: 0.5rem;
-                }
-                .subtitle-group .subtitle:last-child {
-                    margin-bottom: 0;
-                }
-
                 .section-title {
                     font-size: 1.5rem;
                     font-weight: 600;
@@ -256,12 +245,7 @@ function SpeakingTestReady() {
                 <div className="content-wrapper">
                     {/* Main Title */}
                     <h1 className="main-title">Speaking Test</h1>
-                    
-                    {/* Subtitle group with reduced spacing */}
-                    <div className="subtitle-group">
-                        <p className="subtitle">Prepare for your IELTS Speaking assessment</p>
-                
-                    </div>
+                    <p className="subtitle">Prepare for your IELTS Speaking assessment</p>
 
                     {/* Exam Conditions Section */}
                     <h2 className="section-title">Exam Conditions Active</h2>

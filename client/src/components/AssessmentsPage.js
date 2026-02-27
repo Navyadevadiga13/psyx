@@ -1,45 +1,38 @@
 import React, { useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import {
-  FaBrain,
-  FaBriefcase,
-  FaLanguage,
-  FaArrowRight,
-  FaPuzzlePiece,
-  FaChartPie,
-  FaListOl,
-  FaHeadphones,
-  FaBookOpen,
-  FaPenFancy,
-  FaMicrophone,
-  FaHeadSideVirus,
-  FaHeart,
-  FaUniversity,
-  FaUserFriends,FaPalette,FaShapes,FaHandshake,FaHandsHelping
-  
+  FaBrain, FaHandshake, FaBriefcase, FaLanguage, FaArrowRight,
+  FaChartPie, FaPuzzlePiece, FaListOl, FaShapes,
+  FaHeadphones, FaBookOpen, FaPenFancy, FaHandsHelping,
+  FaMicrophone, FaHeadSideVirus, FaHeart,
+  FaUniversity, FaUserFriends, FaPalette,FaUserCog
 } from "react-icons/fa";
-import "./AssessmentsPage.css"; // We'll create this or use inline styles if preferred, but separate is cleaner. 
-// For now, to ensure styles apply immediately without creating a new CSS file if not strictly necessary, 
-// I will REUSE the classes from TestsSection (which are likely in App.css or global). 
-// However, creating a specific CSS file is better for the specific button styling. Note: I will add the CSS to App.css or a new file.
-// Let's create a new CSS file for it to be safe.
+import { useNavigate } from "react-router-dom";
 
-function AssessmentsPage() {
+function TestsSection({ isLoggedIn }) {
   const navigate = useNavigate();
   const cardsRef = useRef([]);
 
-  // Check if user is logged in
-  const isLoggedIn = !!localStorage.getItem("token");
-
   const handleStart = (route) => {
-    if (isLoggedIn) {
-      navigate(route);
-    } else {
-      navigate("/login");
-    }
+    if (isLoggedIn) navigate(route);
+    else navigate("/login");
   };
 
   const ASSESSMENTS = [
+    {
+      id: "human-quotients",
+      title: "Human Quotients",
+      subtitle: "Measure your cognitive & emotional capacity",
+      icon: <FaHandsHelping />,
+      color: "#19fd91",
+      gradient: "linear-gradient(135deg, #19fd91, rgba(25, 253, 145, 0.8))",
+      bgColor: "rgba(25, 253, 145, 0.05)",
+      buttons: [
+        { label: "Intellectual Quotient (IQ)", icon: <FaBrain />, action: () => handleStart("/tests/career/iqtest") },
+        { label: "Emotional Intelligence (EQ)", icon: <FaHeart />, action: () => handleStart("/tests/personality/eqtest") },
+        { label: "Social Quotient (SQ)", icon: <FaHandshake />, action: () => handleStart("/tests/personality/sqtest") },
+        { label: "Physical Quotient (PQ)", icon: <FaUserCog />, action: () => handleStart("/tests/personality/pqtest") },
+      ]
+    },
     {
       id: "personality",
       title: "Personality",
@@ -49,33 +42,27 @@ function AssessmentsPage() {
       gradient: "linear-gradient(135deg, #19fd91, rgba(25, 253, 145, 0.8))",
       bgColor: "rgba(25, 253, 145, 0.05)",
       buttons: [
-                { label: "IQ Test", icon: <FaBrain />, action: () => handleStart("/tests/career/iqtest") },
-        { label: "Left Brain and Right Brain Assessment", icon: <FaHeadSideVirus />, action: () => handleStart("/tests/personality/leftright") },
+        { label: "Left Brain & Right Brain", icon: <FaHeadSideVirus />, action: () => handleStart("/tests/personality/leftright") },
         { label: "Big Five", icon: <FaChartPie />, action: () => handleStart("/tests/personality/bigfive") },
         { label: "MBTI Analysis", icon: <FaPuzzlePiece />, action: () => handleStart("/tests/personality/mbti") },
         { label: "16PF Questionnaire", icon: <FaListOl />, action: () => handleStart("/tests/personality/16pf") },
-        { label: "Emotional Intelligence (EQ)", icon: <FaHeart />, action: () => handleStart("/tests/personality/eqtest") },
-        { label: "Dr.Phil's",  icon: <FaBrain />, action: () => handleStart("/tests/personality/drphils") },
-  { label: "Perception Personality Test", icon: <FaUserFriends />, action: () => handleStart("/tests/personality/perception") },
-    { label: "Diagram Analysis", icon: <FaPalette />, action: () => handleStart("/tests/personality/diagramanalysis") },
-        { label: "Psychology of Geometry", icon: <FaShapes />, action: () => handleStart("/tests/personality/geometry") },
-        { label: "Social Quotient (SQ)", icon: <FaHandshake />, action: () => handleStart("/tests/personality/sqtest") },
-        { label: "Human Quotient (HQ)", icon: <FaHandsHelping />, action: () => handleStart("/tests/personality/hqtest") },
+        { label: "Dr. Phil's Test", icon: <FaBrain />, action: () => handleStart("/tests/personality/drphils") },
+        { label: "Perception Test", icon: <FaUserFriends />, action: () => handleStart("/tests/personality/perception") },
+        { label: "Diagram Analysis", icon: <FaPalette />, action: () => handleStart("/tests/personality/diagramanalysis") },
+        { label: "Psychology of Geometry", icon: <FaShapes />, action: () => handleStart("/tests/personality/geometry") }
       ]
     },
     {
       id: "career",
       title: "Career Core",
       subtitle: "Find your professional path",
-      description: "Discover your professional archetype. We map your skills to high-demand industry roles.",
       icon: <FaBriefcase />,
       color: "#19fd91",
       gradient: "linear-gradient(135deg, #19fd91, rgba(25, 253, 145, 0.8))",
       bgColor: "rgba(25, 253, 145, 0.05)",
       buttons: [
-        { label: "Career Anchor Assessment", icon: <FaBriefcase />, action: () => handleStart("/tests/career/career-anchor") },
-        { label: "RIASEC (Holland Code)", icon: <FaChartPie />, action: () => handleStart("/tests/career/riasec") },
-
+        { label: "Career Anchor", icon: <FaBriefcase />, action: () => handleStart("/tests/career/career-anchor") },
+        { label: "RIASEC (Holland Code)", icon: <FaChartPie />, action: () => handleStart("/tests/career/riasec") }
       ]
     },
     {
@@ -95,7 +82,7 @@ function AssessmentsPage() {
     },
     {
       id: "toefl",
-      title: "TOEFL MOCK",
+      title: "TOEFL Mock",
       subtitle: "iBT Practice Test",
       icon: <FaUniversity />,
       color: "#19fd91",
@@ -111,16 +98,11 @@ function AssessmentsPage() {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("card-visible");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("card-visible");
+      });
+    }, { threshold: 0.1 });
 
     cardsRef.current.forEach((card) => {
       if (card) observer.observe(card);
@@ -130,73 +112,216 @@ function AssessmentsPage() {
   }, []);
 
   return (
-    <div className="assessments-page-container">
-      <div className="assessments-header-section">
-        <h1 className="assessments-title">
-          <span className="title-gradient">Choose Your Assessment</span>
-        </h1>
-        <p className="assessments-subtitle">
-          Select a module to begin your journey of self-discovery and improvement.
-        </p>
-      </div>
+    <>
+     <style>{`
 
-      <div className="assessments-grid">
-        {ASSESSMENTS.map((assessment, index) => (
-          <div
-            key={assessment.id}
-            ref={el => cardsRef.current[index] = el}
-            className="assessment-interactive-card"
-            style={{
-              '--card-color': assessment.color,
-              '--card-gradient': assessment.gradient,
-              '--card-bg': assessment.bgColor,
-            }}
-          >
-            <div className="card-glow"></div>
+  body { margin: 0; }
 
-            <div className="card-header-interactive">
-              <div className="icon-wrapper-large" style={{ color: assessment.color }}>
-                {assessment.icon}
+  .tests-container {
+    padding: 80px 100px;
+    min-height: 100vh;
+    background: #0a140f;
+    box-sizing: border-box;
+  }
+
+  .tests-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .tests-main-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #19fd91;
+    margin-bottom: 10px;
+  }
+
+  .tests-subtitle {
+    color: #b4bebd;
+    font-size: 1rem;
+  }
+
+  .assessments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+  }
+
+  .assessment-interactive-card {
+    background: #111c17;
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid #233127;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .assessment-interactive-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(25,253,145,0.18);
+  }
+
+  .card-header-interactive {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .icon-wrapper-large {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    color: #19fd91;
+  }
+
+  .card-header-interactive h2 {
+    margin: 5px 0;
+    font-size: 1.4rem;
+  }
+
+  .card-header-interactive p {
+    color: #b4bebd;
+    font-size: 0.95rem;
+  }
+
+  .interactive-buttons-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .interactive-btn {
+    background: #1a2a20;
+    border: 1px solid #233127;
+    padding: 12px 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .interactive-btn span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+  }
+
+  .interactive-btn:hover {
+    background: #19fd91;
+    color: black;
+  }
+
+  /* ================= TABLET ================= */
+
+  @media (max-width: 1024px) {
+
+    .tests-container {
+      padding: 60px 50px;
+    }
+
+    .tests-main-title {
+      font-size: 2.2rem;
+    }
+
+    .assessments-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+  }
+
+  /* ================= MOBILE ================= */
+
+  @media (max-width: 768px) {
+
+   .tests-container {
+  padding: 140px 100px 80px 100px;}
+
+    .tests-main-title {
+      font-size: 1.9rem;
+    }
+
+    .tests-subtitle {
+      font-size: 0.9rem;
+    }
+
+    .assessments-grid {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+
+    .assessment-interactive-card {
+      padding: 22px;
+      border-radius: 16px;
+    }
+
+    .interactive-btn {
+      font-size: 13px;
+      padding: 10px 14px;
+    }
+  }
+
+  /* ================= SMALL MOBILE ================= */
+
+  @media (max-width: 480px) {
+
+    .tests-main-title {
+      font-size: 1.6rem;
+    }
+
+    .card-header-interactive h2 {
+      font-size: 1.2rem;
+    }
+
+    .card-header-interactive p {
+      font-size: 0.85rem;
+    }
+
+    .interactive-btn {
+      font-size: 12px;
+      padding: 9px 12px;
+    }
+  }
+
+`}</style>
+
+      <div className="tests-container">
+        <div className="tests-header">
+          <h1 className="tests-main-title">Choose Your Assessment</h1>
+          <p className="tests-subtitle">Select a specific module to begin your analysis.</p>
+        </div>
+
+        <div className="assessments-grid">
+          {ASSESSMENTS.map((assessment, index) => (
+            <div
+              key={assessment.id}
+              ref={el => cardsRef.current[index] = el}
+              className="assessment-interactive-card"
+            >
+              <div className="card-header-interactive">
+                <div className="icon-wrapper-large">{assessment.icon}</div>
+                <h2>{assessment.title}</h2>
+                <p>{assessment.subtitle}</p>
               </div>
-              <h2>{assessment.title}</h2>
-              <p className="card-subtitle-text">{assessment.subtitle}</p>
+
+              <div className="interactive-buttons-grid">
+                {assessment.buttons.map((btn, idx) => (
+                  <button key={idx} className="interactive-btn" onClick={btn.action}>
+                    <span>{btn.icon} {btn.label}</span>
+                    <FaArrowRight />
+                  </button>
+                ))}
+              </div>
             </div>
-
-            <div className="card-body-interactive">
-              {assessment.description && (
-                <p className="description-text">{assessment.description}</p>
-              )}
-
-              {assessment.buttons && (
-                <div className="interactive-buttons-grid">
-                  {assessment.buttons.map((btn, idx) => (
-                    <button key={idx} className="interactive-btn" onClick={btn.action}>
-                      <span className="btn-icon">{btn.icon}</span>
-                      <span className="btn-label">{btn.label}</span>
-                      <FaArrowRight className="btn-arrow" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {assessment.mainButton && (
-                <button className="main-start-btn" onClick={assessment.mainButton.action}>
-                  <span>{assessment.mainButton.label}</span>
-                  <FaArrowRight />
-                </button>
-              )}
-            </div>
-
-            <div className="hover-overlay"></div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-
-      {/* Background Elements */}
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-    </div>
+    </>
   );
 }
 
-export default AssessmentsPage;
+export default TestsSection;

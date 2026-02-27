@@ -425,32 +425,36 @@ function ProfilePage({ onLogout }) {
 // DR PHIL PERSONALITY TEST
 if (testName.includes("Dr Phil") && result?.score !== undefined) {
   return (
-    <div style={{ marginTop: "10px" }}>
+    <div style={{ marginTop: "15px" }}>
       <div style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
         Personality Score
       </div>
 
-      <div style={{ fontSize: "2.5rem", fontWeight: "800", color: "var(--accent)" }}>
+      <div
+        style={{
+          fontSize: "2.5rem",
+          fontWeight: "800",
+          color: "var(--accent)",
+          marginTop: "5px"
+        }}
+      >
         {result.score}
       </div>
 
-      {result.interpretation && (
-        <div
-          style={{
-            marginTop: "8px",
-            fontSize: "0.9rem",
-            lineHeight: "1.6",
-            whiteSpace: "pre-line"
-          }}
-        >
-          {result.interpretation}
-        </div>
-      )}
+      <div
+        style={{
+          marginTop: "15px",
+          fontSize: "0.95rem",
+          lineHeight: "1.8",
+          whiteSpace: "pre-wrap",   // 🔥 CRITICAL
+          wordBreak: "break-word"
+        }}
+      >
+        {result.interpretation}
+      </div>
     </div>
   );
 }
-
-
 // 8. PERCEPTION PERSONALITY TEST
 if (
   testName === "Perception Personality Test" &&
@@ -664,52 +668,106 @@ Remember — social skills improve with practice.
   );
 }
 
-// HQ TEST
+// 12. PERSONALITY QUOTIENT (PQ) TEST
 
-if (testName === "HQ Personality Test" && result?.score !== undefined) {
+if (
+  testName === "Personality Quotient Test (PQ)" &&
+  result?.score !== undefined
+) {
+
+  const getPqInterpretation = (s) => {
+    if (s >= 40) {
+      return {
+        strengths: `
+You have a strong understanding of human behavior.
+You quickly pick up social cues and body language.
+You naturally build trust in conversations.
+You navigate professional and social environments with confidence.
+`,
+        growthTip: `
+Continue sharpening emotional awareness.
+Consider leadership or mentoring roles where perception skills are valuable.
+`
+      };
+    }
+
+    if (s >= 30) {
+      return {
+        strengths: `
+You understand relationship dynamics well.
+You interpret common emotional signals accurately.
+You build meaningful and stable connections.
+`,
+        growthTip: `
+Improve attention to subtle micro-expressions.
+Practice deeper empathy in complex or sensitive situations.
+`
+      };
+    }
+
+    if (s >= 20) {
+      return {
+        strengths: `
+You manage basic social situations comfortably.
+You can maintain conversations and build rapport.
+You have strong potential to improve further.
+`,
+        growthTip: `
+Observe body language more carefully.
+Strengthen active listening and emotional responsiveness.
+`
+      };
+    }
+
+    return {
+      strengths: `
+You may rely more on logic than emotional cues.
+Some complex social dynamics may feel challenging.
+`,
+      growthTip: `
+Work on eye contact and listening skills.
+Observe how people express emotions non-verbally.
+Practice engaging in small group conversations regularly.
+`
+    };
+  };
+
+  const interpretation = getPqInterpretation(result.score);
+
   return (
     <div style={{ marginTop: "10px" }}>
 
-      {/* Label */}
-      <div style={{ 
-        fontSize: "0.8rem", 
-        color: "var(--text-muted)",
-        marginBottom: "4px"
-      }}>
-        Human Quotient (HQ)
+      {/* Score Label */}
+      <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "5px" }}>
+        PQ Score
       </div>
 
-      {/* Score */}
-      <div style={{ 
-        fontSize: "2.2rem", 
-        fontWeight: "800", 
-        color: "var(--accent)" 
-      }}>
+      {/* Score Number */}
+      <div style={{ fontSize: "2.5rem", fontWeight: "800", color: "var(--accent)" }}>
         {result.score}
       </div>
 
-      {/* Level */}
-      <div style={{ 
-        marginTop: "6px", 
-        fontSize: "0.95rem",
-        fontWeight: "600",
+      {/* Saved Level From Backend */}
+      <div style={{
+        marginTop: "6px",
+        fontSize: "1rem",
+        fontWeight: "700",
         color: "var(--accent)"
       }}>
         {result.level}
       </div>
 
-      {/* Detailed Description */}
-      {result.description && (
-        <div style={{
-          marginTop: "10px",
-          fontSize: "0.85rem",
-          color: "var(--text-primary)",
-          lineHeight: "1.6",
-          whiteSpace: "pre-line"
-        }}>
-          {result.description}
-        </div>
-      )}
+      {/* Strengths Section */}
+      <div style={{ marginTop: "12px", fontSize: "0.9rem", whiteSpace: "pre-line" }}>
+        <strong>What you're strong at:</strong>
+        {interpretation.strengths}
+      </div>
+
+      {/* Growth Tip Section */}
+      <div style={{ marginTop: "12px", fontSize: "0.9rem", whiteSpace: "pre-line" }}>
+        <strong>Growth Tip:</strong>
+        {interpretation.growthTip}
+      </div>
 
     </div>
   );

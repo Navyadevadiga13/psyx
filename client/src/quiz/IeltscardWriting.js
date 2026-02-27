@@ -44,19 +44,6 @@ function WritingTestReady() {
                     font-size: 1.2rem;
                     color: rgba(255, 255, 255, 0.7);
                     text-align: center;
-                    margin-bottom: 0.5rem;
-                }
-
-                .subtitle:last-child {
-                    margin-bottom: 0;
-                }
-
-                /* Description box for the subtitles */
-                .description-box {
-                    background: rgba(25, 253, 145, 0.05);
-                    border-radius: 12px;
-                    padding: 2rem;
-                    border: 1px solid rgba(25, 253, 145, 0.2);
                     margin-bottom: 3rem;
                 }
 
@@ -310,17 +297,7 @@ function WritingTestReady() {
                 <div className="content-wrapper">
                     {/* Main Title */}
                     <h1 className="main-title">Writing Test Ready</h1>
-                    
-                    {/* Description box containing the three subtitles */}
-                    <div className="description-box">
-                        <p className="subtitle">Prepare for your IELTS Writing assessment</p>
-                        <p className="subtitle">
-                            This test checks your English writing skills. It looks at how well you express ideas and organize your thoughts.
-                        </p>
-                        <p className="subtitle">
-                            This test shows how clearly you can write in English.
-                        </p>
-                    </div>
+                    <p className="subtitle">Prepare for your IELTS Writing assessment</p>
 
                     {/* Exam Conditions Section */}
                     <h2 className="section-title">Exam Conditions Active</h2>
@@ -391,6 +368,7 @@ function WritingTestReady() {
 
                     {/* Divider */}
                     <div className="divider-line"></div>
+
 
                 </div>
             </div>

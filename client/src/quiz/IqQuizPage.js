@@ -1,17 +1,344 @@
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { FaClock, FaArrowRight, FaArrowLeft } from "react-icons/fa";
+// import iqQuestions from "../data/iqQuestions";
+// import getApiBaseUrl from "../utils/api"; 
+
+// function IqQuizPage() {
+//     const navigate = useNavigate();
+//     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+//     const [answers, setAnswers] = useState({});
+//     const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes in seconds
+
+//     const API_URL = getApiBaseUrl(); 
+// ;
+
+//     useEffect(() => {
+//         const timer = setInterval(() => {
+//             setTimeLeft((prev) => {
+//                 if (prev <= 1) {
+//                     clearInterval(timer);
+//                     handleSubmit();
+//                     return 0;
+//                 }
+//                 return prev - 1;
+//             });
+//         }, 1000);
+//         return () => clearInterval(timer);
+//     }, []);
+
+//     const formatTime = (seconds) => {
+//         const minutes = Math.floor(seconds / 60);
+//         const secs = seconds % 60;
+//         return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+//     };
+
+//     const handleOptionSelect = (option) => {
+//         setAnswers({ ...answers, [currentQuestionIndex]: option });
+//     };
+
+//     const handleNext = () => {
+//         if (currentQuestionIndex < iqQuestions.length - 1) {
+//             setCurrentQuestionIndex(currentQuestionIndex + 1);
+//         } else {
+//             handleSubmit();
+//         }
+//     };
+
+//     const handlePrevious = () => {
+//         if (currentQuestionIndex > 0) {
+//             setCurrentQuestionIndex(currentQuestionIndex - 1);
+//         }
+//     };
+
+//     const saveTestResult = async (iqScore) => {
+//         const token = localStorage.getItem("token");
+//         if (!token) return;
+
+//         try {
+//             await fetch(`${API_URL}/tests/save`, {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                     Authorization: token,
+//                 },
+//                 body: JSON.stringify({
+//                     testName: "IQ Test",
+//                     result: { score: iqScore, date: new Date().toISOString() }
+//                 }),
+//             });
+//         } catch (err) {
+//             console.error("Failed to save IQ result", err);
+//         }
+//     };
+
+//     const handleSubmit = () => {
+//         // Calculate Score
+//         let correctCount = 0;
+//         iqQuestions.forEach((q, index) => {
+//             if (answers[index] === q.answer) {
+//                 correctCount++;
+//             }
+//         });
+
+//         // Updated IQ calculation: 20 questions * 5 points = 100 max
+//         const iqScore = correctCount * 5;
+
+//         // Save result
+//         saveTestResult(iqScore);
+
+//         navigate("/quiz/iq-result", { state: { score: iqScore, correct: correctCount, total: iqQuestions.length } });
+//     };
+
+//     const currentQuestion = iqQuestions[currentQuestionIndex];
+//     const progressPercentage = ((currentQuestionIndex + 1) / iqQuestions.length) * 100;
+//     const isLastQuestion = currentQuestionIndex === iqQuestions.length - 1;
+
+//     // Theme colors matching BigFivePage/App.css
+//     const theme = {
+//         bgMain: "var(--bg-main)", // #0a140f
+//         bgCard: "var(--bg-card)", // #111c17
+//         accent: "var(--accent)", // #19fd91
+//         textMain: "var(--text-main)", // #ffffff
+//         textMuted: "var(--text-muted)", // #b4bebd
+//         border: "var(--border)", // #233127
+//     };
+
+//     return (
+//         <div style={{
+//             minHeight: "100vh",
+//             background: theme.bgMain,
+//             fontFamily: "'Inter', sans-serif",
+//             display: "flex",
+//             flexDirection: "column",
+//             alignItems: "center",
+//             padding: "2rem",
+//             color: theme.textMain
+//         }}>
+
+//             {/* Top Bar: Progress & Timer */}
+//             <div style={{
+//                 width: "100%",
+//                 maxWidth: "1000px",
+//                 display: "flex",
+//                 justifyContent: "space-between",
+//                 alignItems: "center",
+//                 marginBottom: "2rem"
+//             }}>
+//                 <div style={{ fontWeight: "600", color: theme.textMuted }}>
+//                     Question {currentQuestionIndex + 1} of {iqQuestions.length}
+//                 </div>
+
+//                 <div style={{
+//                     flex: 1,
+//                     height: "10px",
+//                     background: "rgba(33,46,35,0.7)",
+//                     borderRadius: "5px",
+//                     margin: "0 2rem",
+//                     overflow: "hidden"
+//                 }}>
+//                     <div style={{
+//                         width: `${progressPercentage}%`,
+//                         height: "100%",
+//                         background: theme.accent,
+//                         transition: "width 0.3s ease"
+//                     }}></div>
+//                 </div>
+
+//                 <div style={{
+//                     display: "flex",
+//                     alignItems: "center",
+//                     gap: "0.5rem",
+//                     fontWeight: "600",
+//                     color: theme.accent,
+//                     background: "rgba(25, 253, 145, 0.1)",
+//                     padding: "0.5rem 1rem",
+//                     borderRadius: "20px",
+//                     border: `1px solid ${theme.border}`
+//                 }}>
+//                     <FaClock />
+//                     <span>{formatTime(timeLeft)}</span>
+//                 </div>
+//             </div>
+
+//             {/* Question Card */}
+//             <div style={{
+//                 background: theme.bgCard,
+//                 width: "100%",
+//                 maxWidth: "1000px",
+//                 borderRadius: "20px",
+//                 padding: "3rem",
+//                 boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
+//                 border: `1px solid ${theme.border}`,
+//                 minHeight: "400px",
+//                 display: "flex",
+//                 flexDirection: "column",
+//                 justifyContent: "center",
+//                 alignItems: "center"
+//             }}>
+
+//                 <h2 style={{
+//                     textAlign: "center",
+//                     color: theme.textMain,
+//                     marginBottom: "2rem",
+//                     fontSize: "1.5rem",
+//                     fontWeight: "600",
+//                     lineHeight: "1.5"
+//                 }}>
+//                     {currentQuestionIndex + 1}. {currentQuestion.question}
+//                 </h2>
+
+//                 {/* Render Question SVG if available */}
+//                 {currentQuestion.svg && (
+//                     <div
+//                         style={{
+//                             marginBottom: "2rem",
+//                             width: "100%",
+//                             display: "flex",
+//                             justifyContent: "center"
+//                         }}
+//                         dangerouslySetInnerHTML={{ __html: currentQuestion.svg }}
+//                     />
+//                 )}
+
+//                 <div style={{
+//                     display: "flex",
+//                     flexDirection: "column",
+//                     gap: "1rem",
+//                     marginBottom: "3rem",
+//                     width: "100%"
+//                 }}>
+//                     {currentQuestion.options.map((option, idx) => {
+//                         const isSelected = answers[currentQuestionIndex] === option;
+//                         const labels = ["A", "B", "C", "D"];
+
+//                         // Check if there's a specific SVG for this option (if we add optionSvgs to data)
+//                         // Or auto-generate simple SVG for text/numbers to match "SVG format" request
+//                         const optionSvg = currentQuestion.optionSvgs ? currentQuestion.optionSvgs[idx] : null;
+
+//                         return (
+//                             <div
+//                                 key={idx}
+//                                 onClick={() => handleOptionSelect(option)}
+//                                 style={{
+//                                     border: `2px solid ${isSelected ? theme.accent : "var(--input-border, #233127)"}`,
+//                                     borderRadius: "10px",
+//                                     padding: "1rem 1.5rem",
+//                                     display: "flex",
+//                                     alignItems: "center",
+//                                     cursor: "pointer",
+//                                     transition: "all 0.2s ease",
+//                                     background: isSelected ? theme.accent : "var(--bg-accent, #1A261F)",
+//                                     color: isSelected ? "var(--btn-text, #000)" : theme.textMain,
+//                                     gap: "1rem",
+//                                     width: "100%",
+//                                     boxSizing: "border-box"
+//                                 }}
+//                             >
+//                                 <div style={{
+//                                     width: "28px",
+//                                     minWidth: "28px",
+//                                     height: "28px",
+//                                     borderRadius: "50%",
+//                                     background: isSelected ? "rgba(0,0,0,0.2)" : "transparent",
+//                                     border: isSelected ? "none" : `2px solid ${theme.textMuted}`,
+//                                     color: isSelected ? "inherit" : theme.textMuted,
+//                                     display: "flex",
+//                                     alignItems: "center",
+//                                     justifyContent: "center",
+//                                     fontWeight: "bold",
+//                                     fontSize: "0.8rem"
+//                                 }}>
+//                                     {labels[idx]}
+//                                 </div>
+
+//                                 {optionSvg ? (
+//                                     <div
+//                                         style={{ width: "60px", height: "60px" }}
+//                                         dangerouslySetInnerHTML={{ __html: optionSvg }}
+//                                     />
+//                                 ) : (
+//                                     <div style={{
+//                                         fontSize: "1.1rem",
+//                                         fontWeight: "500",
+//                                         textAlign: "left"
+//                                     }}>
+//                                         {option}
+//                                     </div>
+//                                 )}
+//                             </div>
+//                         );
+//                     })}
+//                 </div>
+
+//                 <div style={{
+//                     display: "flex",
+//                     justifyContent: "space-between", // Back left, Next right
+//                     width: "100%",
+//                     marginTop: "2rem"
+//                 }}>
+//                     {currentQuestionIndex > 0 ? (
+//                         <button
+//                             onClick={handlePrevious}
+//                             style={{
+//                                 background: "#222a22",
+//                                 border: "none",
+//                                 color: "white",
+//                                 cursor: "pointer",
+//                                 fontSize: "1rem",
+//                                 fontWeight: "600",
+//                                 padding: "1rem 3rem", // Increased padding for width
+//                                 borderRadius: "12px",
+//                                 transition: "all 0.2s",
+//                                 minWidth: "180px" // Ensure minimum width
+//                             }}
+//                         >
+//                             Back
+//                         </button>
+//                     ) : (
+//                         <div></div>
+//                     )}
+
+//                     <button
+//                         onClick={handleNext}
+//                         style={{
+//                             background: theme.accent,
+//                             border: "none",
+//                             color: "black",
+//                             cursor: "pointer",
+//                             fontSize: "1rem",
+//                             fontWeight: "700",
+//                             padding: "1rem 3rem", // Increased padding for width
+//                             borderRadius: "12px",
+//                             transition: "all 0.2s",
+//                             minWidth: "180px" // Ensure minimum width
+//                         }}
+//                     >
+//                         {isLastQuestion ? "Submit" : "Next"}
+//                     </button>
+//                 </div>
+
+//             </div>
+//             {/* Removed external footer */}
+
+//         </div >
+//     );
+// }
+
+// export default IqQuizPage;
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaClock, FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { FaClock } from "react-icons/fa";
 import iqQuestions from "../data/iqQuestions";
-import getApiBaseUrl from "../utils/api"; 
+import getApiBaseUrl from "../utils/api";
 
 function IqQuizPage() {
     const navigate = useNavigate();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
-    const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(20 * 60);
 
-    const API_URL = getApiBaseUrl(); 
-;
+    const API_URL = getApiBaseUrl();
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -24,6 +351,7 @@ function IqQuizPage() {
                 return prev - 1;
             });
         }, 1000);
+
         return () => clearInterval(timer);
     }, []);
 
@@ -51,7 +379,8 @@ function IqQuizPage() {
         }
     };
 
-    const saveTestResult = async (iqScore) => {
+    // ✅ FIXED SAVE FUNCTION
+    const saveTestResult = async (rawScore) => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
@@ -64,7 +393,7 @@ function IqQuizPage() {
                 },
                 body: JSON.stringify({
                     testName: "IQ Test",
-                    result: { score: iqScore, date: new Date().toISOString() }
+                    result: { score: rawScore }   // ✅ IMPORTANT FIX
                 }),
             });
         } catch (err) {
@@ -73,255 +402,175 @@ function IqQuizPage() {
     };
 
     const handleSubmit = () => {
-        // Calculate Score
         let correctCount = 0;
+
         iqQuestions.forEach((q, index) => {
             if (answers[index] === q.answer) {
                 correctCount++;
             }
         });
 
-        // Updated IQ calculation: 20 questions * 5 points = 100 max
-        const iqScore = correctCount * 5;
+        saveTestResult(correctCount);
 
-        // Save result
-        saveTestResult(iqScore);
-
-        navigate("/quiz/iq-result", { state: { score: iqScore, correct: correctCount, total: iqQuestions.length } });
+        navigate("/quiz/iq-result", {
+            state: {
+                score: correctCount,
+                total: iqQuestions.length
+            }
+        });
     };
 
     const currentQuestion = iqQuestions[currentQuestionIndex];
-    const progressPercentage = ((currentQuestionIndex + 1) / iqQuestions.length) * 100;
-    const isLastQuestion = currentQuestionIndex === iqQuestions.length - 1;
+    const progressPercentage =
+        ((currentQuestionIndex + 1) / iqQuestions.length) * 100;
 
-    // Theme colors matching BigFivePage/App.css
     const theme = {
-        bgMain: "var(--bg-main)", // #0a140f
-        bgCard: "var(--bg-card)", // #111c17
-        accent: "var(--accent)", // #19fd91
-        textMain: "var(--text-main)", // #ffffff
-        textMuted: "var(--text-muted)", // #b4bebd
-        border: "var(--border)", // #233127
+        bgMain: "var(--bg-main)",
+        bgCard: "var(--bg-card)",
+        accent: "var(--accent)",
+        textMain: "var(--text-main)",
+        textMuted: "var(--text-muted)",
+        border: "var(--border)",
     };
 
     return (
-        <div style={{
-            minHeight: "100vh",
-            background: theme.bgMain,
-            fontFamily: "'Inter', sans-serif",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "2rem",
-            color: theme.textMain
-        }}>
-
-            {/* Top Bar: Progress & Timer */}
-            <div style={{
-                width: "100%",
-                maxWidth: "1000px",
+        <div
+            style={{
+                minHeight: "100vh",
+                background: theme.bgMain,
+                fontFamily: "'Inter', sans-serif",
                 display: "flex",
-                justifyContent: "space-between",
+                flexDirection: "column",
                 alignItems: "center",
-                marginBottom: "2rem"
-            }}>
+                padding: "2rem",
+                color: theme.textMain,
+            }}
+        >
+            {/* Top Bar */}
+            <div
+                style={{
+                    width: "100%",
+                    maxWidth: "1000px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "2rem",
+                }}
+            >
                 <div style={{ fontWeight: "600", color: theme.textMuted }}>
                     Question {currentQuestionIndex + 1} of {iqQuestions.length}
                 </div>
 
-                <div style={{
-                    flex: 1,
-                    height: "10px",
-                    background: "rgba(33,46,35,0.7)",
-                    borderRadius: "5px",
-                    margin: "0 2rem",
-                    overflow: "hidden"
-                }}>
-                    <div style={{
-                        width: `${progressPercentage}%`,
-                        height: "100%",
-                        background: theme.accent,
-                        transition: "width 0.3s ease"
-                    }}></div>
+                <div
+                    style={{
+                        flex: 1,
+                        height: "10px",
+                        background: "rgba(33,46,35,0.7)",
+                        borderRadius: "5px",
+                        margin: "0 2rem",
+                        overflow: "hidden",
+                    }}
+                >
+                    <div
+                        style={{
+                            width: `${progressPercentage}%`,
+                            height: "100%",
+                            background: theme.accent,
+                            transition: "width 0.3s ease",
+                        }}
+                    ></div>
                 </div>
 
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    fontWeight: "600",
-                    color: theme.accent,
-                    background: "rgba(25, 253, 145, 0.1)",
-                    padding: "0.5rem 1rem",
-                    borderRadius: "20px",
-                    border: `1px solid ${theme.border}`
-                }}>
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        fontWeight: "600",
+                        color: theme.accent,
+                        background: "rgba(25, 253, 145, 0.1)",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "20px",
+                        border: `1px solid ${theme.border}`,
+                    }}
+                >
                     <FaClock />
                     <span>{formatTime(timeLeft)}</span>
                 </div>
             </div>
 
             {/* Question Card */}
-            <div style={{
-                background: theme.bgCard,
-                width: "100%",
-                maxWidth: "1000px",
-                borderRadius: "20px",
-                padding: "3rem",
-                boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
-                border: `1px solid ${theme.border}`,
-                minHeight: "400px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center"
-            }}>
-
-                <h2 style={{
-                    textAlign: "center",
-                    color: theme.textMain,
-                    marginBottom: "2rem",
-                    fontSize: "1.5rem",
-                    fontWeight: "600",
-                    lineHeight: "1.5"
-                }}>
+            <div
+                style={{
+                    background: theme.bgCard,
+                    width: "100%",
+                    maxWidth: "1000px",
+                    borderRadius: "20px",
+                    padding: "3rem",
+                    boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
+                    border: `1px solid ${theme.border}`,
+                    minHeight: "400px",
+                }}
+            >
+                <h2
+                    style={{
+                        textAlign: "center",
+                        marginBottom: "2rem",
+                    }}
+                >
                     {currentQuestionIndex + 1}. {currentQuestion.question}
                 </h2>
 
-                {/* Render Question SVG if available */}
-                {currentQuestion.svg && (
-                    <div
-                        style={{
-                            marginBottom: "2rem",
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center"
-                        }}
-                        dangerouslySetInnerHTML={{ __html: currentQuestion.svg }}
-                    />
-                )}
-
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1rem",
-                    marginBottom: "3rem",
-                    width: "100%"
-                }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     {currentQuestion.options.map((option, idx) => {
-                        const isSelected = answers[currentQuestionIndex] === option;
-                        const labels = ["A", "B", "C", "D"];
-
-                        // Check if there's a specific SVG for this option (if we add optionSvgs to data)
-                        // Or auto-generate simple SVG for text/numbers to match "SVG format" request
-                        const optionSvg = currentQuestion.optionSvgs ? currentQuestion.optionSvgs[idx] : null;
+                        const isSelected =
+                            answers[currentQuestionIndex] === option;
 
                         return (
                             <div
                                 key={idx}
                                 onClick={() => handleOptionSelect(option)}
                                 style={{
-                                    border: `2px solid ${isSelected ? theme.accent : "var(--input-border, #233127)"}`,
+                                    border: `2px solid ${
+                                        isSelected
+                                            ? theme.accent
+                                            : theme.border
+                                    }`,
                                     borderRadius: "10px",
-                                    padding: "1rem 1.5rem",
-                                    display: "flex",
-                                    alignItems: "center",
+                                    padding: "1rem",
                                     cursor: "pointer",
-                                    transition: "all 0.2s ease",
-                                    background: isSelected ? theme.accent : "var(--bg-accent, #1A261F)",
-                                    color: isSelected ? "var(--btn-text, #000)" : theme.textMain,
-                                    gap: "1rem",
-                                    width: "100%",
-                                    boxSizing: "border-box"
+                                    background: isSelected
+                                        ? theme.accent
+                                        : "transparent",
+                                    color: isSelected ? "#000" : theme.textMain,
                                 }}
                             >
-                                <div style={{
-                                    width: "28px",
-                                    minWidth: "28px",
-                                    height: "28px",
-                                    borderRadius: "50%",
-                                    background: isSelected ? "rgba(0,0,0,0.2)" : "transparent",
-                                    border: isSelected ? "none" : `2px solid ${theme.textMuted}`,
-                                    color: isSelected ? "inherit" : theme.textMuted,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontWeight: "bold",
-                                    fontSize: "0.8rem"
-                                }}>
-                                    {labels[idx]}
-                                </div>
-
-                                {optionSvg ? (
-                                    <div
-                                        style={{ width: "60px", height: "60px" }}
-                                        dangerouslySetInnerHTML={{ __html: optionSvg }}
-                                    />
-                                ) : (
-                                    <div style={{
-                                        fontSize: "1.1rem",
-                                        fontWeight: "500",
-                                        textAlign: "left"
-                                    }}>
-                                        {option}
-                                    </div>
-                                )}
+                                {option}
                             </div>
                         );
                     })}
                 </div>
 
-                <div style={{
-                    display: "flex",
-                    justifyContent: "space-between", // Back left, Next right
-                    width: "100%",
-                    marginTop: "2rem"
-                }}>
-                    {currentQuestionIndex > 0 ? (
-                        <button
-                            onClick={handlePrevious}
-                            style={{
-                                background: "#222a22",
-                                border: "none",
-                                color: "white",
-                                cursor: "pointer",
-                                fontSize: "1rem",
-                                fontWeight: "600",
-                                padding: "1rem 3rem", // Increased padding for width
-                                borderRadius: "12px",
-                                transition: "all 0.2s",
-                                minWidth: "180px" // Ensure minimum width
-                            }}
-                        >
-                            Back
-                        </button>
-                    ) : (
-                        <div></div>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "2rem",
+                    }}
+                >
+                    {currentQuestionIndex > 0 && (
+                        <button onClick={handlePrevious}>Back</button>
                     )}
 
-                    <button
-                        onClick={handleNext}
-                        style={{
-                            background: theme.accent,
-                            border: "none",
-                            color: "black",
-                            cursor: "pointer",
-                            fontSize: "1rem",
-                            fontWeight: "700",
-                            padding: "1rem 3rem", // Increased padding for width
-                            borderRadius: "12px",
-                            transition: "all 0.2s",
-                            minWidth: "180px" // Ensure minimum width
-                        }}
-                    >
-                        {isLastQuestion ? "Submit" : "Next"}
+                    <button onClick={handleNext}>
+                        {currentQuestionIndex ===
+                        iqQuestions.length - 1
+                            ? "Submit"
+                            : "Next"}
                     </button>
                 </div>
-
             </div>
-            {/* Removed external footer */}
-
-        </div >
+        </div>
     );
 }
 

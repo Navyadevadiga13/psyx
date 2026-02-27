@@ -59,7 +59,7 @@ import ToeflWritingInstructions from "./quiz/ToeflWritingInstructions";
 import ToeflResultPage from "./quiz/ToeflResultPage";
 import Geometry from "./quiz/Geometry";
 import SqTest from "./quiz/SqTest";
-
+import PqTest from "./quiz/PqTest";
 import "./App.css";
 
 const HEADER_OFFSET = 70;
@@ -256,6 +256,16 @@ function MainContent() {
         <Route path="/tests/personality/sqtest" element={
           <ProtectedRoute isLoggedIn={isLoggedIn}>
             <SqTest />
+          </ProtectedRoute>
+        } />
+        <Route path="/tests/personality/sqtest" element={
+          <ProtectedRoute isLoggedIn={isLoggedIn}>
+            <SqTest />
+          </ProtectedRoute>
+        } />
+        <Route path="/tests/personality/pqtest" element={
+          <ProtectedRoute isLoggedIn={isLoggedIn}>
+            <PqTest />
           </ProtectedRoute>
         } />
         

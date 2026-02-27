@@ -36,20 +36,6 @@ function EqTestPage() {
             text-align: center;
         }
 
-        /* NEW DESCRIPTION BOX */
-        .eq-description-box {
-            background: rgba(25, 253, 145, 0.05);
-            border: 1px solid rgba(25, 253, 145, 0.2);
-            border-radius: 14px;
-            padding: 1.2rem 1.5rem;
-            margin: 1.5rem auto 2rem auto;
-            max-width: 650px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-
         .subtitle {
             font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.7);
@@ -159,6 +145,7 @@ function EqTestPage() {
             margin: 2rem 0;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             .iq-test-container {
                 padding: 1rem;
@@ -186,16 +173,7 @@ function EqTestPage() {
             <div className="iq-test-container">
                 <div className="content-wrapper">
                     <h1 className="main-title">Ready to start the EQ test?</h1>
-
-                    {/* NEW 2-LINE DESCRIPTION */}
-                    <div className="eq-description-box">
-                        This Emotional Intelligence (EQ) test evaluates how well you
-                        understand, manage, and respond to emotions in yourself and others.
-                        It provides insights into your emotional awareness, empathy,
-                        and interpersonal effectiveness.
-                    </div>
-
-                    
+                    <p className="subtitle">Assess your emotional intelligence with our comprehensive test.</p>
 
                     <h2 className="section-title">Test Instructions</h2>
                     <div className="conditions-box">

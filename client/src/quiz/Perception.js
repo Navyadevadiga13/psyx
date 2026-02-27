@@ -7,6 +7,7 @@ const TEST_NAME = "Perception Personality Test";
 const TEST_DESCRIPTION =
   "Enter the first 4 words that you see";
 
+// ✅ Allowed words (from smiley)
 const ALLOWED_WORDS = [
   "happy","lazy","impatient","genuine","elegant","peaceful","reserved","witty","sentimental","lovely","dependent","loyal","dramatic","talented","charismatic","honest","naive","shy","passionate","insecure","thoughtful","eloquent","restless","outspoken","outgoing","sweet","sincere","charming","courageous","compassionate","centric","calculating","stubborn","helpful"
 ];
@@ -23,6 +24,7 @@ function Perception() {
     setWords(updated);
   };
 
+  // 🔥 Levenshtein Distance (for spelling correction)
   const levenshteinDistance = (a, b) => {
     const matrix = [];
 
@@ -51,6 +53,7 @@ function Perception() {
     return matrix[b.length][a.length];
   };
 
+  // 🔥 Find closest valid word
   const getClosestWord = (input) => {
     input = input.toLowerCase();
 
@@ -68,17 +71,20 @@ function Perception() {
   const handleSubmit = async () => {
     const trimmed = words.map(w => w.trim().toLowerCase());
 
+    // 1️⃣ Must enter 4 words
     if (trimmed.some(w => w === "")) {
       alert("Please enter exactly 4 words.");
       return;
     }
 
+    // 2️⃣ No duplicates
     const unique = new Set(trimmed);
     if (unique.size !== 4) {
       alert("Please enter 4 different words.");
       return;
     }
 
+    // 3️⃣ Validate + autocorrect
     let correctedWords = [];
 
     for (let word of trimmed) {
@@ -92,6 +98,7 @@ function Perception() {
       correctedWords.push(match);
     }
 
+    // Capitalize
     const formatted = correctedWords.map(
       w => w.charAt(0).toUpperCase() + w.slice(1)
     );
@@ -154,7 +161,7 @@ function Perception() {
           </div>
 
           <div style={{ marginTop: "10px", color: "#19fd91" }}>
-          ✅ Result saved to your profile!
+            ✅ Result saved to your profile!
           </div>
 
           <button style={styles.button} onClick={handleRetake}>
@@ -170,20 +177,6 @@ function Perception() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>{TEST_NAME}</h1>
-
-      {/* ✅ DESCRIPTION CARD SECTION */}
-      <div style={styles.descriptionCard}>
-        {/* <h3 style={styles.cardTitle}>About This Test</h3> */}
-        <p style={styles.cardText}>
-          This visual perception test reveals hidden personality traits based on
-          the first four words you notice in the image.
-        </p>
-        <p style={styles.cardText}>
-          Your choices reflect subconscious thinking patterns, emotional tendencies,
-          and core behavioral strengths.
-        </p>
-      </div>
-
       <p style={styles.description}>{TEST_DESCRIPTION}</p>
 
       <div style={styles.imageWrapper}>
@@ -228,27 +221,6 @@ const styles = {
   heading: {
     fontSize: "32px",
     color: "#19fd91",
-    marginBottom: "10px",
-  },
-  descriptionCard: {
-  background: "rgba(255,255,255,0.05)",
-    backdropFilter: "blur(10px)",
-    border: "1px solid rgba(25,253,145,0.3)",
-    borderRadius: "18px",
-    padding: "25px",
-    maxWidth: "700px",
-    margin: "20px auto 40px",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.4)"
-  },
-  cardTitle: {
-    color: "#19fd91",
-    marginBottom: "10px",
-    fontSize: "18px",
-  },
-  cardText: {
-    color: "#ccc",
-    fontSize: "14px",
-    lineHeight: "1.6",
     marginBottom: "10px",
   },
   description: {

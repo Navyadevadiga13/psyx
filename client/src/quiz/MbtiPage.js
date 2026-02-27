@@ -614,6 +614,7 @@ export default function MbtiPage() {
 
   // ✅ USE ENV VARIABLE
   const API_URL =  getApiBaseUrl(); 
+;
 
   const saveTestResult = async (scoredResult) => {
     const token = localStorage.getItem("token");
@@ -654,161 +655,168 @@ export default function MbtiPage() {
 
   if (!test) return <div className="quiz-page">Test not found.</div>;
 
-  // ✅ RESULT SCREEN (when result exists)
   if (result) {
-    const info = MBTI_DESCRIPTIONS[result.type];
+  const info = MBTI_DESCRIPTIONS[result.type];
 
-    const letterMap = {
-      E: "Extraverted",
-      I: "Introverted",
-      S: "Sensing",
-      N: "Intuitive",
-      T: "Thinking",
-      F: "Feeling",
-      J: "Judging",
-      P: "Perceiving",
-    };
+  const letterMap = {
+    E: "Extraverted",
+    I: "Introverted",
+    S: "Sensing",
+    N: "Intuitive",
+    T: "Thinking",
+    F: "Feeling",
+    J: "Judging",
+    P: "Perceiving",
+  };
+  const prefs =
+    result.type &&
+    result.type
+      .split("")
+      .map((ch) => letterMap[ch] || ch)
+      .join(" • ");
 
-    return (
+  return (
+   <div
+  style={{
+    minHeight: "80vh",
+    marginTop: "130px",   // 👈 pushes entire card below header
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "var(--bg-main)",
+    padding: "3.5rem 1rem",
+  }}
+>
+
       <div
         style={{
-          minHeight: "60vh",
-          marginTop: "100px", // pushes below navbar
-          background: "var(--bg-main)",
-          padding: "2rem 1rem 3rem 1rem",
+          background: "var(--bg-card)",
+          padding: "3rem 2.5rem",
+          minWidth: 350,
+          maxWidth: 540,
+          borderRadius: 20,
+          boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          gap: "0.9rem",
+          textAlign: "center",
         }}
       >
         <div
           style={{
-            background: "var(--bg-card)",
-            padding: "2rem 1.8rem",
-            maxWidth: 540,
-            borderRadius: 20,
-            boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
-            textAlign: "center",
+            fontWeight: 700,
+            fontSize: "1.35rem",
+            color: "var(--text-main)",
           }}
         >
+          {test.name} – Your Type
+        </div>
+
+        <div
+          style={{
+            fontSize: "2.6rem",
+            fontWeight: 800,
+            color: "var(--accent)",
+            letterSpacing: "0.18em",
+            marginTop: "0.5rem",
+          }}
+        >
+          {result.type}
+        </div>
+
+        {info && (
           <div
             style={{
-              fontSize: "2.6rem",
-              fontWeight: 800,
-              color: "var(--accent)",
-              letterSpacing: "0.18em",
+              fontSize: "1.15rem",
+              fontWeight: 700,
+              color: "var(--text-main)",
             }}
           >
-            {result.type}
+            {info.label.split("–")[1]?.trim() || info.label}
           </div>
+        )}
 
-          {info && (
-            <>
-              <div
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 700,
-                  marginTop: "1rem",
-                }}
-              >
-                {info.label}
-              </div>
+        {prefs && (
+          <div
+            style={{
+              fontSize: "0.95rem",
+              color: "var(--text-main)",
+            }}
+          >
+            ({prefs})
+          </div>
+        )}
 
-              <p
-                style={{
-                  color: "var(--text-muted)",
-                  marginTop: "1rem",
-                }}
-              >
-                {info.text}
-              </p>
-            </>
-          )}
-
-          <div style={{ marginTop: "1rem", color: "var(--accent)" }}>
+        {info && (
+          <p
+            style={{
+              color: "var(--text-muted)",
+              fontSize: "0.95rem",
+              marginTop: "0.75rem",
+            }}
+          >
+            {info.text}
+          </p>
+        )}
+        <div style={{ marginTop: "1rem", fontSize: "0.9rem", color: "var(--accent)", textAlign: "center" }}>
             ✅ Result saved to your profile!
-          </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
- // ✅ QUESTION SCREEN – title & description inside the card, description in a <div>
   return (
     <div
       style={{
-        minHeight: "100vh",
-        marginTop: "60px",
+        minHeight: "80vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         background: "var(--bg-main)",
-        padding: "1rem 1rem 3.5rem 1rem",
+        padding: "3.5rem 1rem",
       }}
     >
       <div
         style={{
+          background: "var(--bg-card)",
+          padding: "3rem 2.5rem",
+          minWidth: 350,
+          maxWidth: 540,
+          borderRadius: 20,
+          boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          gap: "1.8rem",
         }}
       >
         <div
           style={{
-            background: "var(--bg-card)",
-            padding: "3rem 2.5rem",
-            width: "100%",
-            maxWidth: 540,
-            borderRadius: 20,
-            boxShadow: "0 6px 40px rgba(0,0,0,0.12)",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.8rem",
+            fontWeight: 700,
+            fontSize: "1.35rem",
+            color: "var(--text-main)",
           }}
         >
-          {/* Title & Description inside card – description is in a <div> */}
-          <div style={{ textAlign: "center" }}>
-            <h1
-              style={{
-                fontSize: "2.2rem",
-                fontWeight: 800,
-                color: "var(--text-main)",
-                marginBottom: "0.8rem",
-              }}
-            >
-              {test?.name || "MBTI Personality Test"}
-            </h1>
-            {/* Description Box */}
-<div
-  style={{
-   background: "rgba(34, 197, 94, 0.08)",
-      border: "1px solid rgba(34, 197, 94, 0.3)",
-    borderRadius: "14px",
-    padding: "1.2rem 1.4rem",
-    color: "var(--text-muted)",
-    fontSize: "1rem",
-    lineHeight: "1.6",
-  }}
->
-  This test measures your personality preferences across four key dimensions.
-  <br />
-  Answer honestly to discover how you naturally think, interact, and make decisions.
-</div>
-          </div>
-
-
-        {/* ===== Question Number ===== */}
+          {test?.name || "MBTI‑style Personality Test"}
+        </div>
         <div
           style={{
             color: "var(--text-muted)",
             fontSize: "1rem",
+            marginBottom: "1rem",
           }}
         >
           Question {step + 1} of {questionList.length}
         </div>
-
-        {/* ===== Progress Bar ===== */}
         <div
           style={{
             height: 10,
             background: "rgba(33,46,35,0.7)",
             borderRadius: 6,
             overflow: "hidden",
+            marginBottom: "1.5rem",
             width: "100%",
           }}
         >
@@ -821,8 +829,6 @@ export default function MbtiPage() {
             }}
           />
         </div>
-
-        {/* ===== Question Text ===== */}
         <div
           style={{
             fontSize: "1.25rem",
@@ -832,8 +838,6 @@ export default function MbtiPage() {
         >
           {questionList[step].question}
         </div>
-
-        {/* ===== Options Form ===== */}
         <form
           style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
         >
@@ -842,9 +846,7 @@ export default function MbtiPage() {
               key={opt}
               style={{
                 background:
-                  answers[step] === opt
-                    ? "var(--accent)"
-                    : "var(--bg-accent)",
+                  answers[step] === opt ? "var(--accent)" : "var(--bg-accent)",
                 color:
                   answers[step] === opt
                     ? "var(--btn-text)"
@@ -884,14 +886,8 @@ export default function MbtiPage() {
             </label>
           ))}
         </form>
-
-        {/* ===== Navigation Buttons ===== */}
         <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "1rem",
-          }}
+          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
         >
           {step > 0 && (
             <button
@@ -909,14 +905,10 @@ export default function MbtiPage() {
               Back
             </button>
           )}
-
           <button
             type="button"
             className="cta-btn"
-            style={{
-              padding: "0.6rem 2.2rem",
-              borderRadius: 12,
-            }}
+            style={{ padding: "0.6rem 2.2rem", borderRadius: 12 }}
             onClick={handleNext}
           >
             {step < questionList.length - 1 ? "Next" : "Submit"}
@@ -924,6 +916,5 @@ export default function MbtiPage() {
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

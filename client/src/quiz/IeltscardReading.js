@@ -44,19 +44,6 @@ function ReadingTestReady() {
                     font-size: 1.2rem;
                     color: rgba(255, 255, 255, 0.7);
                     text-align: center;
-                    margin-bottom: 0.5rem;
-                }
-
-                .subtitle:last-child {
-                    margin-bottom: 0;
-                }
-
-                /* Description box for the subtitles */
-                .description-box {
-                    background: rgba(25, 253, 145, 0.05);
-                    border-radius: 12px;
-                    padding: 2rem;
-                    border: 1px solid rgba(25, 253, 145, 0.2);
                     margin-bottom: 3rem;
                 }
 
@@ -255,17 +242,7 @@ function ReadingTestReady() {
                 <div className="content-wrapper">
                     {/* Main Title */}
                     <h1 className="main-title">Reading Test Ready</h1>
-                    
-                    {/* Description box containing the three subtitles */}
-                    <div className="description-box">
-                        <p className="subtitle">Prepare for your IELTS Reading assessment</p>
-                        <p className="subtitle">
-                            This test checks your reading skills, understanding, and speed.
-                        </p>
-                        <p className="subtitle">
-                            This test evaluates your reading ability and how well you manage your time.
-                        </p>
-                    </div>
+                    <p className="subtitle">Prepare for your IELTS Reading assessment</p>
 
                     {/* Exam Conditions Section */}
                     <h2 className="section-title">Exam Conditions Active</h2>
@@ -313,6 +290,8 @@ function ReadingTestReady() {
 
                     {/* Divider */}
                     <div className="divider-line"></div>
+
+
 
                 </div>
             </div>

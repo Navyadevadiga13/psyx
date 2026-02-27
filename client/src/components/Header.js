@@ -54,12 +54,33 @@ function Header({ isLoggedIn, showLogin, goProfile }) {
           <div className="mobile-content">
             <button onClick={() => scrollToSection("home")}>Home</button>
             <button onClick={() => scrollToSection("about")}>About</button>
-            <button onClick={() => navigate("/tests")}>Tests</button>
+            <button
+  onClick={() => {
+    setIsMenuOpen(false);
+    navigate("/tests");
+  }}
+>
+  Tests
+</button>
 
             {isLoggedIn ? (
-              <button onClick={goProfile}>View Profile</button>
+        <button
+  onClick={() => {
+    setIsMenuOpen(false);
+    goProfile();
+  }}
+>
+  View Profile
+</button>
             ) : (
-              <button onClick={showLogin}>Login / Sign Up</button>
+          <button
+  onClick={() => {
+    setIsMenuOpen(false);
+    showLogin();
+  }}
+>
+  Login / Sign Up
+</button>
             )}
           </div>
         </div>
@@ -79,14 +100,12 @@ function Header({ isLoggedIn, showLogin, goProfile }) {
           padding: 0 50px;
           z-index: 1000;
           box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-          box-sizing: border-box;
         }
 
         .header-logo-img {
           height: 95px;
           object-fit: contain;
           cursor: pointer;
-          transition: height 0.3s ease;
         }
 
         .header__nav {
@@ -138,21 +157,18 @@ function Header({ isLoggedIn, showLogin, goProfile }) {
           border: none;
           color: #000;
           cursor: pointer;
-          padding: 10px;
         }
 
         .mobile-menu {
           position: fixed;
           top: 110px;
           right: -100%;
-          width: 280px;
-          height: calc(100vh - 110px);
+          width: 270px;
+          height: 100vh;
           background: #ffffff !important;
           transition: right 0.3s ease;
           padding: 30px 20px;
           box-shadow: -2px 0 8px rgba(0,0,0,0.05);
-          z-index: 999;
-          overflow-y: auto;
         }
 
         .mobile-menu.open {
@@ -169,50 +185,18 @@ function Header({ isLoggedIn, showLogin, goProfile }) {
           background: transparent;
           border: none;
           color: #000;
-          font-size: 18px;
+          font-size: 17px;
           text-align: left;
           cursor: pointer;
-          padding: 10px 0;
         }
 
         @media (max-width: 900px) {
-          .header {
-            height: 80px;
-            padding: 0 20px;
-          }
-
-          .header-logo-img {
-            height: 60px;
-          }
-
           .header__nav {
             display: none;
           }
 
           .mobile-menu-btn {
             display: block;
-          }
-
-          .mobile-menu {
-            top: 80px;
-            height: calc(100vh - 80px);
-          }
-        }
-
-        @media (max-width: 480px) {
-          .header {
-            height: 70px;
-            padding: 0 15px;
-          }
-
-          .header-logo-img {
-            height: 50px;
-          }
-
-          .mobile-menu {
-            top: 70px;
-            width: 280px;
-            height: calc(100vh - 70px);
           }
         }
       `}</style>

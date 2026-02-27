@@ -1,3 +1,5 @@
+// src/pages/SqTest.js
+
 import React, { useState } from "react";
 import getApiBaseUrl from "../utils/api";
 
@@ -139,17 +141,15 @@ export default function SqTest() {
     <div style={styles.container}>
       <h1 style={styles.heading}>{TEST_NAME}</h1>
 
-      {/* ✅ DESCRIPTION CARD SECTION */}
-      <div style={styles.descriptionCard}>
-        <p>
-          This test measures your Social Quotient (SQ) — your ability to
-          understand and interact effectively with others.
-        </p>
-        <p>
-          Read each statement carefully and choose the option that best reflects
-          your usual behavior. There are no right or wrong answers.
-        </p>
-      </div>
+      <p style={styles.description}>
+        This test measures your Social Quotient (SQ) — your ability to understand and interact effectively with others.
+        <br />
+        Read each statement carefully and select the option that best describes you.
+        <br />
+        Answer honestly based on your usual behavior, not how you wish to be.
+        <br />
+        There are no right or wrong answers — your score reflects your social awareness level.
+      </p>
 
       {QUESTIONS.map((question, index) => (
         <div key={index} style={styles.questionCard}>
@@ -190,19 +190,12 @@ const styles = {
     color: "#19fd91",
     marginBottom: "20px",
   },
-
-  /* ✅ NEW DESCRIPTION CARD STYLE */
-  descriptionCard: {
-    background: "#111",
-    border: "1px solid #19fd91",
-    borderRadius: "12px",
-    padding: "25px",
-    marginBottom: "30px",
+  description: {
     color: "#ccc",
     fontSize: "0.95rem",
+    marginBottom: "30px",
     lineHeight: "1.6",
   },
-
   questionCard: {
     background: "#111",
     border: "1px solid #19fd91",

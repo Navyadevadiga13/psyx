@@ -204,6 +204,7 @@ You don’t easily open up, but those who know you understand you better.`;
   };
 
   /* ---------------- RESULT SCREEN ---------------- */
+/* ---------------- RESULT SCREEN ---------------- */
 if (result) {
   return (
     <div style={styles.container}>
@@ -213,11 +214,24 @@ if (result) {
         <h2>Your Total Score</h2>
         <h1 style={styles.score}>{result.score}</h1>
 
-        <div style={{ color: "#19fd91", marginTop: "15px" }}>
+        {/* FULL INTERPRETATION DISPLAY */}
+        <div
+          style={{
+            marginTop: "20px",
+            fontSize: "1rem",
+            lineHeight: "1.8",
+            whiteSpace: "pre-wrap",   // 🔥 important
+            textAlign: "left",
+            color: "#ddd"
+          }}
+        >
+          {result.interpretation}
+        </div>
+
+        <div style={{ color: "#19fd91", marginTop: "20px" }}>
           ✅ Full result is saved in your profile!
         </div>
 
-        {/* Buttons container */}
         <div
           style={{
             marginTop: "30px",

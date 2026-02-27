@@ -299,6 +299,36 @@ function ProfilePage({ onLogout }) {
       );
     }
 
+// --- BIG FIVE ---
+if (testName.toLowerCase().includes("big five") && result?.raw) {
+  const { raw, description } = result;
+  return (
+    <div style={{ marginTop: "10px" }}>
+      <div style={{ fontWeight: "600", color: "var(--accent)", marginBottom: "8px" }}>
+        Big Five Personality Traits
+      </div>
+      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        <li>
+          <strong>Extraversion (E):</strong> {raw.E} ({description?.Extraversion || 'N/A'})
+        </li>
+        <li>
+          <strong>Agreeableness (A):</strong> {raw.A} ({description?.Agreeableness})
+        </li>
+        <li>
+          <strong>Conscientiousness (C):</strong> {raw.C} ({description?.Conscientiousness})
+        </li>
+        <li>
+          <strong>Neuroticism (N):</strong> {raw.N} ({description?.Neuroticism})
+        </li>
+        <li>
+          <strong>Openness (O):</strong> {raw.O} ({description?.Openness})
+        </li>
+      </ul>
+      
+    </div>
+  );
+}
+
     // TOEFL (Reading / Writing)
     if (testName.toLowerCase().includes("toefl") && result && (result.score !== undefined)) {
       const total = Number(result.total) || 0;

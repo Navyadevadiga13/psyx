@@ -2569,7 +2569,66 @@ With consistency, your social skills will improve.`
         </div>
       );
     }
+// Career Interest Assessment
+// Career Interest Assessment
+if (
+  testName === "Career Interest Assessment" &&
+  result?.topThree
+) {
+  return (
+    <div style={{ marginTop: "12px" }}>
+      <h3
+        style={{
+          color: "var(--accent)",
+          marginBottom: "12px",
+        }}
+      >
+        Career Interest Assessment
+      </h3>
 
+      <p
+        style={{
+          color: "var(--text-muted)",
+          marginBottom: "16px",
+        }}
+      >
+        Your top three career interest clusters are:
+      </p>
+
+      {result.topThree.map((item, index) => (
+        <div
+          key={item.id}
+          style={{
+            marginBottom: "12px",
+            padding: "14px",
+            borderRadius: "12px",
+            background: "rgba(25,253,145,0.08)",
+            border: "1px solid rgba(25,253,145,0.25)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "1rem",
+              fontWeight: "700",
+              color: "var(--accent)",
+            }}
+          >
+            #{index + 1} {item.title}
+          </div>
+
+          <div
+            style={{
+              marginTop: "6px",
+              color: "var(--text-primary)",
+            }}
+          >
+            Score: <strong>{item.score} / 15</strong>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
     return null;
   };
 

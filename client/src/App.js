@@ -464,6 +464,8 @@
 
 // export default App;
 // src/App.js
+
+
 import React, { useRef, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -505,7 +507,7 @@ import IqResultPage from "./quiz/IqResultPage";
 import EqTestPage from "./quiz/EqTestPage";
 import EqQuizPage from "./quiz/EqQuizPage";
 import EqResultPage from "./quiz/EqResultPage";
-
+import CareerInterestAssessment from "./quiz/CareerInterestAssessment";
 // --- TOEFL & IELTS (example: adjust if needed) ---
 import IeltsListening from "./quiz/IeltsListening";
 import IeltsReading from "./quiz/IeltsReading";
@@ -725,6 +727,9 @@ function MainContent() {
         } />
         <Route path="/tests/career/career-anchor" element={
           <ProtectedRoute isLoggedIn={isLoggedIn}><CareerOrientationsPage /></ProtectedRoute>
+        } />
+        <Route path="/tests/career/career-interest" element={
+          <ProtectedRoute isLoggedIn={isLoggedIn}><CareerInterestAssessment /></ProtectedRoute>
         } />
 
         {/* GRE TESTS */}

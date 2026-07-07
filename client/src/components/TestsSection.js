@@ -55,6 +55,7 @@ function TestsSection({ isLoggedIn }) {
         { label: "Career Anchor", icon: <FaBriefcase />, action: () => handleStart("/tests/career/career-anchor") },
         { label: "RIASEC (Holland Code)", icon: <FaChartPie />, action: () => handleStart("/tests/career/riasec") },
                 { label: "MBTI Analysis", icon: <FaPuzzlePiece />, action: () => handleStart("/tests/personality/mbti") },
+                { label: "Career Interest Assessments", icon: <FaPuzzlePiece />, action: () => handleStart("/tests/career/career-interest") },
       ]
     },
     // {

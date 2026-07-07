@@ -50,6 +50,14 @@ export const ALL_TESTS = [
     desc: "RIASEC interest inventory based on Holland's vocational typology",
     mins: 8,
     questions: 42
-  }
+  },
+  {
+  id: "careerinterest",
+  name: "Career Interest Assessment",
+  category: "career",
+  desc: "Discover your strongest career interest clusters.",
+  mins: 10,
+  questions: 210
+}
 ];
 //   // ❌ QUOTIENT category - NONE go here

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import getApiBaseUrl from "../utils/api";
 import leftBrainImg from "../assets/leftbrain.jpeg";
 import rightBrainImg from "../assets/rightbrain.jpeg";
+
 // --- HELPERS ---
 const FACTORS = {
   A: "Warmth",
@@ -23,6 +24,7 @@ const FACTORS = {
   Q3: "Perfectionism",
   Q4: "Tension",
 };
+
 // Map for Career Anchors (Code -> Label)
 const CAREER_ANCHORS_MAP = {
   AU: "Autonomy/Independence",
@@ -35,25 +37,6 @@ const CAREER_ANCHORS_MAP = {
   LS: "Lifestyle",
 };
 
-// MBTI short descriptions (one-line summaries)
-// const MBTI_DESCRIPTIONS = {
-//   ISTJ: "Responsible, organized, and practical — dependable administrators.",
-//   ISFJ: "Supportive, warm, and conscientious — protectors of tradition.",
-//   INFJ: "Insightful, principled, and altruistic — quiet visionaries.",
-//   INTJ: "Strategic, independent, and analytical — long-range planners.",
-//   ISTP: "Adaptable, logical, and observant — hands-on problem solvers.",
-//   ISFP: "Gentle, creative, and spontaneous — sensitive artists.",
-//   INFP: "Idealistic, compassionate, and introspective — driven by values.",
-//   INTP: "Curious, theoretical, and objective — conceptual thinkers.",
-//   ESTP: "Energetic, pragmatic, and resourceful — action-oriented doers.",
-//   ESFP: "Outgoing, playful, and vivacious — performers and motivators.",
-//   ENFP: "Enthusiastic, imaginative, and warm — idea-oriented inspirers.",
-//   ENTP: "Inventive, quick-witted, and energetic — debaters and innovators.",
-//   ESTJ: "Organized, direct, and pragmatic — natural leaders.",
-//   ESFJ: "Caring, social, and conscientious — community builders.",
-//   ENFJ: "Charismatic, empathetic, and motivating — gifted communicators.",
-//   ENTJ: "Decisive, assertive, and strategic — born executives.",
-// };
 const MBTI_DESCRIPTIONS = {
   ISTJ: {
     label: "ISTJ – Responsible Organizer",
@@ -478,8 +461,7 @@ if (testName.includes("Left Brain") && result?.dominance) {
     </div>
   );
 }
-    // ✅ BIG FIVE TEST
-// ✅ BIG FIVE TEST (DETAILED PROFILE VERSION)
+    // ✅ BIG FIVE TEST (DETAILED PROFILE VERSION)
 if (
   testName &&
   testName.toLowerCase().includes("big five") &&
@@ -599,8 +581,7 @@ if (
         </p>
       </div>
 
-      {/* GROWTH TIP */}
-   {/* GROWTH TIP BOX */}
+      {/* GROWTH TIP BOX */}
 <div style={{
   marginTop: "14px",
   background: "rgba(34,197,94,0.08)",
@@ -662,126 +643,7 @@ if (
       );
     }
 
-    // TOEFL (Reading / Writing / Listening / Speaking)
-    if (testName.toLowerCase().includes("toefl") && result) {
-
-      const rawScore = Number(result.rawScore) || 0;
-      const total = Number(result.total) || 0;
-      const toeflScore = Number(result.toeflScore) || 0;
-
-      const percentage =
-        result.percentage !== undefined
-          ? `${result.percentage}%`
-          : total
-            ? `${Math.round((rawScore / total) * 100)}%`
-            : "N/A";
-
-      return (
-        <div style={{ marginTop: "10px" }}>
-
-          <div
-            style={{
-              fontSize: "1.4rem",
-              fontWeight: "800",
-              color: "var(--accent)"
-            }}
-          >
-            {testName.replace("TOEFL ", "")}: {toeflScore} / 30
-          </div>
-
-          <div
-            style={{
-              fontSize: "0.95rem",
-              marginTop: "6px",
-              color: "var(--text-primary)"
-            }}
-          >
-            Raw Score: {rawScore} / {total}
-
-            <span
-              style={{
-                marginLeft: "8px",
-                color: "var(--text-muted)"
-              }}
-            >
-              ({percentage})
-            </span>
-          </div>
-
-        </div>
-      );
-    }
-
-    // IELTS (Reading / Listening / Speaking / Writing)
-    if (
-      testName &&
-      testName.toLowerCase().includes("ielts") &&
-      result &&
-      result.score !== undefined
-    ) {
-
-      const total = Number(result.total) || 40;
-      const score = Number(result.score) || 0;
-
-      const percentage =
-        result.percentage ||
-        (total ? Math.round((score / total) * 100) + "%" : "N/A");
-
-      const scaledRaw = Math.round((score / total) * 40);
-
-      const bandMap = [
-        [39, 9], [37, 8.5], [35, 8], [32, 7.5], [30, 7],
-        [27, 6.5], [23, 6], [19, 5.5], [15, 5],
-        [13, 4.5], [10, 4], [7, 3.5], [5, 3],
-        [3, 2.5], [1, 2], [0, 0]
-      ];
-
-      let band = 0;
-
-      for (const [minRaw, b] of bandMap) {
-        if (scaledRaw >= minRaw) {
-          band = b;
-          break;
-        }
-      }
-
-      return (
-        <div style={{ marginTop: "10px" }}>
-          <div style={{
-            fontWeight: "700",
-            color: "var(--accent)",
-            fontSize: "1.05rem",
-            marginBottom: "6px"
-          }}>
-            Score: {score} / {total}
-            <span style={{
-              fontSize: "0.9rem",
-              color: "var(--text-muted)",
-              fontWeight: 600
-            }}>
-              ({percentage})
-            </span>
-          </div>
-
-          <div style={{
-            fontSize: "0.95rem",
-            color: "var(--text-primary)",
-            marginTop: "6px"
-          }}>
-            Estimated IELTS Band:
-            <strong style={{
-              color: "var(--accent)",
-              marginLeft: "6px"
-            }}>
-              {band}
-            </strong>
-          </div>
-        </div>
-      );
-    }
-
-    // 3. CAREER ANCHORS
-  // 3. CAREER ANCHORS (ENHANCED RESULT PROFILE)
+    // 3. CAREER ANCHORS (ENHANCED RESULT PROFILE)
 if (testName.includes("Career") && result?.topAnchors) {
 
   const anchors = result.topAnchors.slice(0, 3);
@@ -919,7 +781,6 @@ if (testName.includes("Career") && result?.topAnchors) {
   );
 }
 
-// 3. RIASEC TEST (PROFILE VIEW)
 // 3. RIASEC TEST (PROFILE VIEW)
 if (testName.includes("RIASEC") && result?.code) {
 
@@ -1228,8 +1089,7 @@ With patience and consistency, you will definitely improve over time.`;
         {explanation}
       </div>
 
-      {/* ✅ Tip */}
-     {/* ✅ TIP BOX */}
+      {/* ✅ TIP BOX */}
 <div style={{
   marginTop: "12px",
   background: "rgba(25,253,145,0.08)",
@@ -1271,7 +1131,6 @@ With patience and consistency, you will definitely improve over time.`;
   );
 }
 
-    // 7. EQ TEST
  // 7. EQ TEST
 if (
   testName &&
@@ -1423,7 +1282,6 @@ Start by observing your emotions and learning from your experiences.`;
         {explanation}
       </div>
 
-      {/* ✅ Tip */}
   {/* ✅ TIP BOX */}
 <div style={{
   marginTop: "14px",
@@ -1854,7 +1712,6 @@ Stay grounded in practical reality when needed.`
 }
 
     // 10. GEOMETRY PERSONALITY TEST
- // 10. GEOMETRY PERSONALITY TEST
 if (testName === "Geometry Personality Test" && result?.selectedShape) {
 
   const getShapeMeaning = (shape) => {
@@ -2326,9 +2183,7 @@ if (
     </div>
   );
 }
-    // 12. PERSONALITY QUOTIENT (PQ) TEST
-
-   // 12. PERSONALITY QUOTIENT TEST (PQ)
+    // 12. PERSONALITY QUOTIENT TEST (PQ)
 if (
   testName === "Personality Quotient Test (PQ)" &&
   result?.score !== undefined
@@ -2485,7 +2340,6 @@ With consistency, your social skills will improve.`
         {interpretation.strengths}
       </div>
 
-      {/* GROWTH TIP (GREEN ITALIC) */}
   {/* GROWTH TIP BOX */}
 <div style={{
   marginTop: "14px",
@@ -2521,55 +2375,6 @@ With consistency, your social skills will improve.`
   );
 }
 
-    // GRE VERBAL / QUANT TEST
-
-    if (testName.toLowerCase().includes("gre") && result && (result.score !== undefined)) {
-
-      const total = Number(result.total) || 0;
-      const score = Number(result.score) || 0;
-
-      const percentage =
-        result.percentage ||
-        (total ? Math.round((score / total) * 100) + "%" : "N/A");
-
-      return (
-        <div style={{ marginTop: "10px" }}>
-
-          <div
-            style={{
-              fontWeight: "700",
-              color: "var(--accent)",
-              fontSize: "1.05rem",
-              marginBottom: "6px"
-            }}
-          >
-            {testName}
-          </div>
-
-          <div
-            style={{
-              fontWeight: "600",
-              fontSize: "0.95rem",
-              color: "var(--text-primary)"
-            }}
-          >
-            Score: {score} / {total}
-
-            <span
-              style={{
-                fontSize: "0.9rem",
-                color: "var(--text-muted)",
-                marginLeft: "8px"
-              }}
-            >
-              ({percentage})
-            </span>
-          </div>
-
-        </div>
-      );
-    }
-// Career Interest Assessment
 // Career Interest Assessment
 if (
   testName === "Career Interest Assessment" &&
@@ -2635,151 +2440,34 @@ if (
 
   if (loading) return <div style={{ padding: "2rem", textAlign: "center", color: "#fff" }}>Loading profile...</div>;
   if (error) return <div style={{ padding: "2rem", textAlign: "center", color: "#ff5252" }}>{error}</div>;
- 
-  
+
   if (!user) return null;
-   const latestTestsMap = {};
 
-(user.testHistory || []).forEach((test) => {
-  const name = test.testName;
+  // ✅ Exclude IELTS, TOEFL, and GRE tests entirely from the profile page
+  const excludedTestHistory = (user.testHistory || []).filter((test) => {
+    const name = (test.testName || "").toLowerCase();
+    return !name.includes("ielts") && !name.includes("toefl") && !name.includes("gre");
+  });
 
-  if (!latestTestsMap[name]) {
-    latestTestsMap[name] = test;
-  } else {
-    const existingDate = new Date(latestTestsMap[name].date);
-    const currentDate = new Date(test.date);
+  const latestTestsMap = {};
 
-    if (currentDate > existingDate) {
+  excludedTestHistory.forEach((test) => {
+    const name = test.testName;
+
+    if (!latestTestsMap[name]) {
       latestTestsMap[name] = test;
+    } else {
+      const existingDate = new Date(latestTestsMap[name].date);
+      const currentDate = new Date(test.date);
+
+      if (currentDate > existingDate) {
+        latestTestsMap[name] = test;
+      }
     }
-  }
-});
-
-const latestTests = Object.values(latestTestsMap)
-  .sort((a, b) => new Date(b.date) - new Date(a.date));
-  // ✅ KEEP ONLY LATEST TEST PER TEST NAME
-
-  // -------- TOEFL OVERALL SCORE --------
-
-  const toeflTests = (user.testHistory || []).filter(
-    (t) => t.testName && t.testName.toLowerCase().includes("toefl")
-  );
-
-  let reading = 0;
-  let listening = 0;
-  let writing = 0;
-  let speaking = 0;
-
-  toeflTests.forEach((t) => {
-    const score = Number(t.result?.toeflScore) || 0;
-
-    if (t.testName.toLowerCase().includes("reading")) reading = score;
-    if (t.testName.toLowerCase().includes("listening")) listening = score;
-    if (t.testName.toLowerCase().includes("writing")) writing = score;
-    if (t.testName.toLowerCase().includes("speaking")) speaking = score;
   });
 
-  const toeflTotal = reading + listening + writing + speaking;
-  // -------- IELTS OVERALL BAND --------
-
-  const ieltsTests = (user.testHistory || []).filter(
-    (t) => t.testName && t.testName.toLowerCase().includes("ielts")
-  );
-
-  let ieltsReading = null;
-  let ieltsListening = null;
-  let ieltsWriting = null;
-  let ieltsSpeaking = null;
-
-  const calculateIELTSBand = (score, total = 40) => {
-
-    const scaledRaw = Math.round((score / total) * 40);
-
-    const bandMap = [
-      [39, 9], [37, 8.5], [35, 8], [32, 7.5], [30, 7],
-      [27, 6.5], [23, 6], [19, 5.5], [15, 5],
-      [13, 4.5], [10, 4], [7, 3.5], [5, 3],
-      [3, 2.5], [1, 2], [0, 0]
-    ];
-
-    for (const [minRaw, band] of bandMap) {
-      if (scaledRaw >= minRaw) return band;
-    }
-
-    return 0;
-  };
-  // -------- GRE OVERALL SCORE --------
-
-const greTests = (user.testHistory || []).filter(
-  (t) => t.testName && t.testName.toLowerCase().includes("gre")
-);
-
-let greVerbal = null;
-let greQuant = null;
-let greAnalytical = null;
-
-const convertToGRE = (raw, total = 27) => {
-  if (raw === null || raw === undefined) return null;
-  return Math.round(130 + (raw / total) * 40);
-};
-
-greTests.forEach((t) => {
-  const name = t.testName?.toLowerCase() || "";
-const raw =
-  t.result && typeof t.result.score === "number"
-    ? t.result.score
-    : null;
-
-  if (name.includes("verbal")) {
-    greVerbal = convertToGRE(raw);
-  }
-
-  if (name.includes("quant") || name.includes("quantitative")) {
-    greQuant = convertToGRE(raw);
-  }
-
-if (name.includes("analytical") || name.includes("awa")) {
-  if (raw !== null) {
-    greAnalytical = raw; // always take latest valid score
-  }
-}
-});
-
-const greTotal =
-  greVerbal !== null && greQuant !== null
-    ? greVerbal + greQuant
-    : null;
-
-
-
-  ieltsTests.forEach((t) => {
-
-    const score = Number(t.result?.score) || 0;
-    const band = calculateIELTSBand(score);
-
-const name = t.testName?.toLowerCase() || "";
-
-    if (name.includes("reading")) ieltsReading = band;
-    if (name.includes("listening")) ieltsListening = band;
-    if (name.includes("writing")) ieltsWriting = band;
-    if (name.includes("speaking")) ieltsSpeaking = band;
-
-  });
-
-  const ieltsBands = [
-    ieltsReading,
-    ieltsListening,
-    ieltsWriting,
-    ieltsSpeaking
-  ].filter(b => b !== null);
-
-  const ieltsOverall =
-    ieltsBands.length > 0
-      ? Math.round((ieltsBands.reduce((a, b) => a + b, 0) / ieltsBands.length) * 2) / 2
-      : null;
-
-
-
+  const latestTests = Object.values(latestTestsMap)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <div style={{ minHeight: "90vh", background: "var(--bg-main)", padding: "4rem 1rem" }}>
@@ -2829,109 +2517,8 @@ const name = t.testName?.toLowerCase() || "";
           <h2 style={{ color: "var(--text-main)", borderBottom: "2px solid var(--border-color)", paddingBottom: "10px", marginBottom: "20px" }}>
             Test History
           </h2>
-          {/* TOEFL OVERALL SCORE */}
-          {toeflTotal > 0 && (
-            <div
-              style={{
-                background: "rgba(25,253,145,0.1)",
-                border: "1px solid rgba(25,253,145,0.3)",
-                borderRadius: "16px",
-                padding: "1.5rem",
-                marginBottom: "2rem",
-                textAlign: "center"
-              }}
-            >
-              <div style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-                TOEFL Overall Score
-              </div>
 
-              <div
-                style={{
-                  fontSize: "3rem",
-                  fontWeight: "800",
-                  color: "var(--accent)"
-                }}
-              >
-                {toeflTotal} / 120
-              </div>
-
-              <div style={{ marginTop: "8px", fontSize: "0.9rem" }}>
-                Reading: {reading} | Listening: {listening} | Writing: {writing} | Speaking: {speaking}
-              </div>
-            </div>
-          )}
-          {/* IELTS OVERALL BAND */}
-
-          {ieltsOverall && (
-            <div
-              style={{
-                background: "rgba(25,253,145,0.1)",
-                border: "1px solid rgba(25,253,145,0.3)",
-                borderRadius: "16px",
-                padding: "1.5rem",
-                marginBottom: "2rem",
-                textAlign: "center"
-              }}
-            >
-              <div style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-                IELTS Overall Band
-              </div>
-
-              <div
-                style={{
-                  fontSize: "3rem",
-                  fontWeight: "800",
-                  color: "var(--accent)"
-                }}
-              >
-                {ieltsOverall}
-              </div>
-
-              <div style={{ marginTop: "8px", fontSize: "0.9rem" }}>
-                Reading: {ieltsReading ?? "-"} |
-                Listening: {ieltsListening ?? "-"} |
-                Writing: {ieltsWriting ?? "-"} |
-                Speaking: {ieltsSpeaking ?? "-"}
-              </div>
-            </div>
-          )}
-
-    {greTotal !== null && (
-            <div
-              style={{
-                background: "rgba(25,253,145,0.1)",
-                border: "1px solid rgba(25,253,145,0.3)",
-                borderRadius: "16px",
-                padding: "1.5rem",
-                marginBottom: "2rem",
-                textAlign: "center"
-              }}
-            >
-              <div style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-                GRE Overall Score
-              </div>
-
-              <div
-                style={{
-                  fontSize: "3rem",
-                  fontWeight: "800",
-                  color: "var(--accent)"
-                }}
-              >
-                {greTotal} / 340
-              </div>
-
-         <div style={{ marginTop: "8px", fontSize: "0.9rem" }}>
-  Verbal: {greVerbal ?? "-"} | Quant: {greQuant ?? "-"}
-</div>
-
-<div style={{ marginTop: "6px", fontSize: "0.9rem", color: "var(--accent)" }}>
-  AWA (Analytical Writing): {greAnalytical !== null ? `${greAnalytical} / 6` : "Not Attempted"}
-</div>
-            </div>
-          )}
-
-          {(!user.testHistory || user.testHistory.length === 0) ? (
+          {(!excludedTestHistory || excludedTestHistory.length === 0) ? (
             <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "2rem" }}>
               <p>You haven't taken any tests yet.</p>
               <button

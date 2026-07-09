@@ -16,10 +16,10 @@ const eqQuestions = [
         question: "I can accurately describe my feelings when they arise.",
         options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
     },
-    {
-        question: "I know how my moods affect the people around me.",
-        options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
-    },
+{
+    question: "I recognize how my emotions influence my interactions with others.",
+    options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
+},
 
     // Self-Regulation (Q6-10)
     {
@@ -38,10 +38,10 @@ const eqQuestions = [
         question: "I am able to control my temper when provoked.",
         options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
     },
-    {
-        question: "I take responsibility for my emotional outbursts.",
-        options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
-    },
+{
+    question: "I take responsibility for my emotional reactions and learn from them.",
+    options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
+},
 
     // Motivation (Q11-15)
     {
@@ -82,10 +82,10 @@ const eqQuestions = [
         question: "I am skilled at resolving conflicts within a group.",
         options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
     },
-    {
-        question: "I consider others' feelings before making important decisions.",
-        options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
-    }
+{
+    question: "I consider how my decisions may affect other people.",
+    options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
+}
 ];
 
 export default eqQuestions;

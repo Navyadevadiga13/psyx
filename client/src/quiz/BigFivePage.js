@@ -463,7 +463,7 @@ const QUESTIONS = [
 { question: "I avoid my responsibilities.", options: OPTIONS },
   { question: "I have frequent mood swings.", options: OPTIONS },
   { question: "I use difficult words.", options: OPTIONS },
-  { question: "I dont mind being the center of attention.", options: OPTIONS },
+  { question: "I don't mind being the center of attention.", options: OPTIONS },
   { question: "I feel others' emotions.", options: OPTIONS },
   { question: "I follow a schedule.", options: OPTIONS },
   { question: "I get irritated easily.", options: OPTIONS },

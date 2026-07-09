@@ -23,7 +23,7 @@ const QUESTIONS = [
   "I know when a person is anxious.",
   "People say that I am inappropriate in social situations.",
   "I have empathy for others.",
-  "I try to call out bullies.",
+ "I stand up respectfully for people who are treated unfairly.",
   "I praise the efforts of others.",
   "I can adapt my style of communication to connect with a conversation partner.",
   "I am uncomfortable in social situations."

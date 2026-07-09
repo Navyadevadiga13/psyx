@@ -178,7 +178,6 @@ function IqResultPage() {
                 >
                     Raw Score: {rawScore} / {TOTAL_QUESTIONS}
                 </div>
-
                 <div
                     style={{
                         marginTop: "1rem",
